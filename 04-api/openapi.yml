@@ -64,7 +64,7 @@ paths:
               displayName: Julian Bocanegra
               email: julian@correo.com
               username: julianb
-              password: S3gura!2026
+              password: '********'
               deviceId: 6f1d2c9a-0c4e-4f7b-9c1e-1a2b3c4d5e6f
       responses:
         '201':

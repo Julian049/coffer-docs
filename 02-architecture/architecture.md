@@ -353,7 +353,7 @@ Protocolo en [ADR-0006](adr/0006-protocolo-de-sincronizacion.md):
 
 ### 8.8 Experiencia de usuario
 
-- Diseño según el [sistema de diseño](../08-ui/design-system.md) (Material 3, paleta Espresso: porcelana y espresso con acento caramelo, bordes de 1 px, sin sombras, tokens claro y oscuro) y el prototipo de Figma "Finance App".
+- Diseño según el [sistema de diseño](../08-ui/design-system.md) (Material 3, base neutra con detalles caramelo y botones espresso, bordes de 1 px, sin sombras, tokens claro y oscuro) y el prototipo de Figma "Finance App".
 - Registrar un gasto básico en 4 interacciones como máximo (RNF-14): el botón **+** abre el formulario con la fecha, la hora y la última cuenta usada ya puestas.
 - Los campos de tarjeta o préstamo solo aparecen si la cuenta elegida lo requiere (RNF-15).
 

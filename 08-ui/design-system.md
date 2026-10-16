@@ -6,15 +6,19 @@ Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: españo
 
 | Versión | Fecha | Cambio |
 | --- | --- | --- |
-| 2.0 | 2026-10-15 | Paleta **Espresso** para la marca Coffer: claro "Porcelana" y oscuro espresso. Un solo color de marca (`primary`), también en el botón flotante |
+| 2.1 | 2026-10-15 | Base **neutra** (blanco y grises cálidos) con detalles **caramelo** en selección e íconos; los botones conservan el **espresso** |
+| 2.0 | 2026-10-15 | Paleta Espresso para la marca Coffer: claro "Porcelana" y oscuro espresso |
 | 1.0 | 2026-10-07 | Paleta salvia original ("Finance App") |
 
 ---
 
 ## 1. Concepto
 
-- **Limpio, con alma de café.** El modo claro es casi blanco y cálido (porcelana); el modo oscuro es café espresso. El café vive en los **detalles**: color principal, íconos, chips seleccionados y navegación. Nunca se tiñe toda la pantalla de beige.
-- **Un solo color de marca:** `primary` (espresso en claro, latte en oscuro) para botones, botón flotante, selección y navegación. Nunca como fondo de áreas grandes.
+- **Neutro y familiar.** Fondo y superficies en blanco y grises apenas cálidos, como las apps de finanzas habituales; nada de pantallas teñidas de café o beige.
+- **El café en tres lugares precisos:**
+  1. **Botones** (principales y flotante) en `primary`: espresso en claro, latte en oscuro.
+  2. **Selección y navegación** (chips, pestañas, indicador de la barra) en caramelo suave (`primary-container` / `on-primary-container`).
+  3. **Íconos de categoría** en caramelo (`icon-on-container`), además del logo y el ícono de la app.
 - **Bordes finos** en todas las superficies elevadas, en lugar de sombras: contornos de 1 px sutiles, sin desenfoques ni transparencias.
 - **El significado financiero manda sobre la marca:** verde para ingresos, rojo para gastos y deudas, dorado para avisos. Ningún color de marca se parece a esos tres.
 - La app tiene **modo claro y modo oscuro** con los mismos tokens.
@@ -23,41 +27,41 @@ Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: españo
 
 ## 2. Paleta
 
-### Modo claro · "Porcelana"
+### Modo claro
 
 | Token | Hex | Uso |
 | --- | --- | --- |
-| `background` | `#F7F6F4` | Fondo general de la pantalla |
+| `background` | `#FAFAF9` | Fondo general de la pantalla |
 | `surface` | `#FFFFFF` | Tarjetas, listas, campos, hojas |
 | `surface-highlight` | `#FFFFFF` | Tarjeta destacada (por ejemplo, saldo principal) |
-| `border` | `#E8E4DF` | Borde de tarjetas, divisores, campos |
-| `border-highlight` | `#D8CFC5` | Borde de la tarjeta destacada |
-| `text-primary` | `#241C17` | Texto principal y montos neutros |
-| `text-secondary` | `#74695F` | Etiquetas, subtítulos, metadatos, placeholders |
-| `primary` | `#4A3328` | Botones principales y flotante, elemento activo, enlaces |
+| `border` | `#ECEAE7` | Borde de tarjetas, divisores, campos |
+| `border-highlight` | `#DAD6D1` | Borde de la tarjeta destacada |
+| `text-primary` | `#1C1917` | Texto principal y montos neutros |
+| `text-secondary` | `#78716C` | Etiquetas, subtítulos, metadatos, placeholders |
+| `primary` | `#4A3328` | Botones principales y flotante, enlaces (espresso) |
 | `on-primary` | `#FFFFFF` | Texto e íconos sobre `primary` |
-| `primary-container` | `#EFE7DE` | Fondo de chip, filtro o pestaña seleccionada |
-| `on-primary-container` | `#3B271E` | Texto sobre `primary-container` |
-| `icon-container` | `#F3EEE8` | Fondo circular de íconos de categoría |
-| `icon-on-container` | `#6B4A38` | Ícono dentro de `icon-container` |
+| `primary-container` | `#F6E9DD` | Chip, filtro o pestaña seleccionada e indicador de navegación (caramelo suave) |
+| `on-primary-container` | `#7A4520` | Texto e ícono sobre `primary-container` |
+| `icon-container` | `#F8F0E8` | Fondo circular de íconos de categoría |
+| `icon-on-container` | `#9C5F33` | Ícono dentro de `icon-container` (caramelo) |
 
-### Modo oscuro · "Espresso"
+### Modo oscuro
 
 | Token | Hex | Uso |
 | --- | --- | --- |
-| `background` | `#1A1411` | Fondo general de la pantalla |
-| `surface` | `#241C18` | Tarjetas, listas, campos, hojas |
-| `surface-highlight` | `#2C231E` | Tarjeta destacada |
-| `border` | `#3A2F28` | Borde de tarjetas, divisores, campos |
-| `border-highlight` | `#4E4036` | Borde de la tarjeta destacada |
-| `text-primary` | `#F1E8DF` | Texto principal y montos neutros |
-| `text-secondary` | `#B0A194` | Etiquetas, subtítulos, metadatos, placeholders |
-| `primary` | `#D9B99A` | Botones principales y flotante, elemento activo, enlaces (tono latte) |
+| `background` | `#121110` | Fondo general de la pantalla |
+| `surface` | `#1C1A19` | Tarjetas, listas, campos, hojas |
+| `surface-highlight` | `#242120` | Tarjeta destacada |
+| `border` | `#2E2B29` | Borde de tarjetas, divisores, campos |
+| `border-highlight` | `#3F3B38` | Borde de la tarjeta destacada |
+| `text-primary` | `#F5F5F4` | Texto principal y montos neutros |
+| `text-secondary` | `#A8A29E` | Etiquetas, subtítulos, metadatos, placeholders |
+| `primary` | `#D9B99A` | Botones principales y flotante, enlaces (latte) |
 | `on-primary` | `#2A1C14` | Texto e íconos sobre `primary` |
-| `primary-container` | `#3E2E24` | Fondo de chip, filtro o pestaña seleccionada |
-| `on-primary-container` | `#F0DCC6` | Texto sobre `primary-container` |
-| `icon-container` | `#2C231E` | Fondo circular de íconos de categoría |
-| `icon-on-container` | `#D9B99A` | Ícono dentro de `icon-container` |
+| `primary-container` | `#3A2A1E` | Chip, filtro o pestaña seleccionada e indicador de navegación |
+| `on-primary-container` | `#F0C9A6` | Texto e ícono sobre `primary-container` |
+| `icon-container` | `#2A221C` | Fondo circular de íconos de categoría |
+| `icon-on-container` | `#D08D58` | Ícono dentro de `icon-container` (caramelo) |
 
 ### Colores semánticos (finanzas)
 
@@ -144,6 +148,6 @@ Los tokens son las variables `color/<token>` de la colección **"Finance App · 
 
 - Gradientes, sombras, desenfoques o efectos de brillo.
 - Colores decorativos adicionales a los de esta guía.
-- Teñir fondos completos de beige, crema o café en modo claro: el fondo es `background` y las tarjetas `surface`.
-- `primary` como fondo de áreas grandes, o colores de marca adicionales para botones.
+- Teñir fondos o superficies de beige, crema o café: el fondo es neutro (`background`) y las tarjetas blancas (`surface`).
+- `primary` como fondo de áreas grandes, botones negros o colores de marca adicionales para botones.
 - Montos de transferencia en rojo o verde.

@@ -21,11 +21,11 @@ Identidad visual de Coffer: un **zorro** cuyo cuerpo forma un **grano de café**
 
 1. Se pega la nueva imagen **con el mismo nombre**, encima de la anterior.
 2. Se respeta el **contrato** de esa pieza (tabla de abajo): tamaño del lienzo, fondo transparente y, en la mascota, la misma escala y la misma línea de suelo.
-3. Se hace commit en `coffer-docs` y se avisa a Claude: *"reemplacé `mascot-preocupado.png`"*. Claude copia la imagen a los recursos de la app (ver "Sincronización con la app") y no hay que tocar código.
+3. Se hace commit en `coffer-docs` y se avisa a Claude: *"reemplacé `mascot-worried.png`"*. Claude copia la imagen a los recursos de la app (ver "Sincronización con la app") y no hay que tocar código.
 
 ### Sincronización con la app
 
-En `coffer-app`, un script (`scripts/sync-brand-assets.sh`, que se crea en la primera historia que use la marca o la mascota) copia estas imágenes a los recursos de Android. Lo hace con un mapeo fijo de nombres: Android no admite guiones, así que `mascot-preocupado.png` pasa a ser `res/drawable-nodpi/mascot_preocupado.webp`. El código solo referencia esos recursos (`R.drawable.mascot_preocupado`); nunca rutas ni copias sueltas de las imágenes. Para reemplazar una imagen se vuelve a correr el script y se abre un PR en `coffer-app` con los recursos actualizados.
+En `coffer-app`, un script (`scripts/sync-brand-assets.sh`, que se crea en la primera historia que use la marca o la mascota) copia estas imágenes a los recursos de Android. Lo hace con un mapeo fijo de nombres: Android no admite guiones, así que `mascot-worried.png` pasa a ser `res/drawable-nodpi/mascot_worried.webp`. El código solo referencia esos recursos (`R.drawable.mascot_worried`); nunca rutas ni copias sueltas de las imágenes. Para reemplazar una imagen se vuelve a correr el script y se abre un PR en `coffer-app` con los recursos actualizados.
 
 Si la imagen nueva no cumple el contrato (otro tamaño, fondo blanco, zorro más grande), Claude la normaliza antes de sincronizar, igual que hace `build.py`. **No se cambian los nombres**: un nombre nuevo es un recurso nuevo en la app.
 
@@ -52,13 +52,13 @@ Contrato: **1024 × 1024, fondo transparente, misma escala** (el zorro sentado m
 | Estado | Archivo | Cuándo se muestra |
 | --- | --- | --- |
 | Normal | `mascot-normal.png` | Finanzas estables, sin novedades |
-| Bien | `mascot-bien.png` | Mes con balance positivo / ahorro |
-| Meta cumplida | `mascot-meta.png` | Presupuesto o meta cumplida |
-| Atento | `mascot-atento.png` | Pago pendiente próximo a vencer |
-| Preocupado | `mascot-preocupado.png` | Presupuesto superado |
-| Deudas | `mascot-deudas.png` | Saldo negativo o deudas altas |
-| Descanso | `mascot-descanso.png` | Estados vacíos (sin movimientos) |
-| Bienvenida | `mascot-bienvenida.png` | Inicio de sesión y primer uso |
+| Bien | `mascot-good.png` | Mes con balance positivo / ahorro |
+| Meta cumplida | `mascot-goal.png` | Presupuesto o meta cumplida |
+| Atento | `mascot-attentive.png` | Pago pendiente próximo a vencer |
+| Preocupado | `mascot-worried.png` | Presupuesto superado |
+| Deudas | `mascot-debt.png` | Saldo negativo o deudas altas |
+| Descanso | `mascot-resting.png` | Estados vacíos (sin movimientos) |
+| Bienvenida | `mascot-welcome.png` | Inicio de sesión y primer uso |
 
 Las reglas exactas (umbrales de cada estado) se definen en la historia que introduzca la mascota en la app.
 
@@ -68,4 +68,4 @@ Las piezas que salieron de la hoja original (todas menos `preocupado` y `deudas`
 
 ## Regenerar desde `source/`
 
-Copiar `source/fox-sheet.png`, `source/fox-deudas.jpg` y `source/fox-preocupado.jpg` junto a `tools/build.py` como `src-sheet.png`, `src-a.jpg` y `src-b.jpg`, y ejecutar `python build.py` (requiere `pillow`, `numpy`, `vtracer`, `resvg-py`). El resultado sale en `out/`.
+Copiar `source/fox-sheet.png`, `source/fox-debt.jpg` y `source/fox-worried.jpg` junto a `tools/build.py` como `src-sheet.png`, `src-a.jpg` y `src-b.jpg`, y ejecutar `python build.py` (requiere `pillow`, `numpy`, `vtracer`, `resvg-py`). El resultado sale en `out/`.

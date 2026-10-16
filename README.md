@@ -19,9 +19,14 @@ Documentación de **Coffer**, app Android de finanzas personales *offline-first*
 | [05-test](05-test/test-plan.md) | Plan de pruebas | ISO/IEC/IEEE 29119-3 |
 | [06-settings](06-settings/manage-config.md) | Gestión de configuración: ramas, versiones, releases | IEEE 828 |
 | [07-management](07-management/sprint-plan.md) | [Metodología Scrum](07-management/scrum.md) y plan de sprints | Scrum Guide 2020 |
-| [08-ui](08-ui/README.md) | Prototipo de Figma y sistema de diseño | Material 3 |
+| [08-ui](08-ui/README.md) | Prototipo de Figma, sistema de diseño y [marca y mascota](08-ui/icons/README.md) | Material 3 |
 | [09-user](09-user/README.md) | Manual de usuario (al final) | — |
 
 ## Versionado
 
 Las líneas base se marcan con tags `docs-vX.Y.Z` (ver [gestión de configuración §3.1.5](06-settings/manage-config.md)). `docs-v1.0.0` = SRS 1.0 + arquitectura, diseño, contrato, plan de pruebas, plan de configuración y plan de sprints 1.0.
+
+## Convenciones
+
+- El contenido está en **español**; los **nombres de archivos y carpetas, en inglés** (kebab-case), igual que en los repositorios de código.
+- Los diagramas van en Mermaid dentro de Markdown, para que GitHub los muestre sin herramientas adicionales.

@@ -24,13 +24,13 @@ SHEET = {
     "icon-mono": (770, 40, 1010, 285),
     "logo-horizontal": (1020, 70, 1530, 285),
     "mascot-normal": (50, 330, 380, 630),
-    "mascot-bien": (420, 330, 760, 630),
-    "mascot-meta": (790, 330, 1110, 630),
-    "mascot-atento": (1170, 330, 1510, 630),
+    "mascot-good": (420, 330, 760, 630),
+    "mascot-goal": (790, 330, 1110, 630),
+    "mascot-attentive": (1170, 330, 1510, 630),
     "old-preocupado": (50, 680, 380, 950),
     "old-deudas": (420, 680, 760, 950),
-    "mascot-descanso": (790, 700, 1110, 950),
-    "mascot-bienvenida": (1170, 660, 1510, 950),
+    "mascot-resting": (790, 700, 1110, 950),
+    "mascot-welcome": (1170, 660, 1510, 950),
 }
 
 
@@ -77,12 +77,12 @@ for name, (x0, y0, x1, y1) in SHEET.items():
         continue
     pieces[name] = trim(key(crop, bg_of(crop)))
 
-for name, src in (("mascot-deudas", "src-a.jpg"), ("mascot-preocupado", "src-b.jpg")):
+for name, src in (("mascot-debt", "src-a.jpg"), ("mascot-worried", "src-b.jpg")):
     rgb = np.asarray(Image.open(W / src).convert("RGB")).astype(np.float32)
     pieces[name] = trim(key(rgb, bg_of(rgb), soft=(10, 26)))
 
 # Las dos correcciones vienen a otra escala: igualarlas a la altura de su versión en la hoja.
-for new, old in (("mascot-deudas", "old-deudas"), ("mascot-preocupado", "old-preocupado")):
+for new, old in (("mascot-debt", "old-deudas"), ("mascot-worried", "old-preocupado")):
     h_old = pieces[old].shape[0]
     im = Image.fromarray(pieces[new])
     f = h_old / im.height
@@ -187,7 +187,7 @@ def export(img: Image.Image, base: Path, erode=0):
 
 
 # ---------- Mascota: misma escala para todas, apoyadas en la misma línea de suelo ----------
-mascots = ["normal", "bien", "meta", "atento", "preocupado", "deudas", "descanso", "bienvenida"]
+mascots = ["normal", "good", "goal", "attentive", "worried", "debt", "resting", "welcome"]
 biggest = max(max(pieces[f"mascot-{m}"].shape[:2]) for m in mascots)
 s = 900 / biggest
 for m in mascots:

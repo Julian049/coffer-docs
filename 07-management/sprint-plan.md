@@ -4,7 +4,7 @@
 | --- | --- |
 | Identificador | FA-PM-002 · versión 1.0 · 2026-10-11 |
 | Metodología | [Scrum adaptado](scrum.md) |
-| Base | [SRS v1.0](../01-requirements/SRS%20—%20Aplicación%20de%20Finanzas%20Personales.md) · [Arquitectura](../02-architecture/architecture.md) · [Diseño detallado](../03-design/detailed-design.md) · [Modelo de datos](../03-design/data-model.md) · [Secuencias](../03-design/sequences/README.md) · [Contrato API](../04-api/openapi.yml) · [Plan de pruebas](../05-test/test-plan.md) · [Gestión de configuración](../06-settings/manage-config.md) · [UI y Figma](../08-ui/README.md) |
+| Base | [SRS v1.0](../01-requirements/srs.md) · [Arquitectura](../02-architecture/architecture.md) · [Diseño detallado](../03-design/detailed-design.md) · [Modelo de datos](../03-design/data-model.md) · [Secuencias](../03-design/sequences/README.md) · [Contrato API](../04-api/openapi.yml) · [Plan de pruebas](../05-test/test-plan.md) · [Gestión de configuración](../06-settings/manage-config.md) · [UI y Figma](../08-ui/README.md) |
 
 ## 1. Hoja de ruta
 
@@ -59,7 +59,7 @@ Cada sprint entrega una versión **instalable y probable**. El orden es obligato
 | S0-T04 | Crear `develop` desde `main` (`v0.1.0`) en ambos repositorios | Claude |
 | S0-T05 | Proteger `main` y `develop` (PR obligatorio, 1 aprobación, CI obligatorio cuando exista, sin *force-push*) | PO |
 | S0-T06 | Plantillas de issue (historia, bug, tarea) y de PR; etiquetas (`type:*`, `area:*`, `priority:*`, `sprint:*`); milestones S1–S11; tablero de GitHub Projects | Claude |
-| S0-T07 | Guardar en Figma la versión con nombre `v1.0-prototipo-srs` | PO |
+| S0-T07 | Guardar en Figma la versión con nombre `v1.0-srs-prototype` | PO |
 | S0-T08 | Crear cuentas de Render y Neon (proyecto `coffer`, base `coffer`, ramas `production` y `staging`) | PO |
 | S0-T09 | Generar el keystore de release (`keytool`) y guardarlo fuera del repositorio; cargarlo como secreto en GitHub (lo usa S1) | PO (con instrucciones de Claude) |
 
@@ -123,7 +123,7 @@ Pantallas: barra de navegación del prototipo (componente "Barra de navegación"
 
 **Objetivo:** registro, inicio de sesión con usuario o correo, sesión que no expira por uso normal y cierre de sesión.
 **Prueba del PO:** AT-AUT-01, AT-AUT-02, AT-AUT-04 y AT-HU06-2 del plan de pruebas.
-**Secuencias:** [SEQ-01](../03-design/sequences/01-autenticacion.md), [SEQ-03](../03-design/sequences/03-sesion-renovar-y-cerrar.md).
+**Secuencias:** [SEQ-01](../03-design/sequences/01-authentication.md), [SEQ-03](../03-design/sequences/03-session-refresh-and-logout.md).
 
 ### S2-H01 · API de autenticación (8 pts)
 
@@ -166,7 +166,7 @@ Pantallas: **Iniciar Sesión**, **Registro**, **Ajustes** (perfil y cerrar sesi�
 
 **Objetivo:** que los datos vivan en una base cifrada en el teléfono y se respalden solos en la nube, incluida la migración de los datos del MVP.
 **Prueba del PO:** AT-HU05-2, AT-HU06-1, AT-AUT-05; ver los movimientos del MVP migrados en Historial (lista básica) y el estado "Sincronizado" en Ajustes.
-**Secuencias:** [SEQ-02](../03-design/sequences/02-descarga-inicial.md), [SEQ-08](../03-design/sequences/08-sincronizacion-push.md), [SEQ-09](../03-design/sequences/09-sincronizacion-pull-y-conflictos.md).
+**Secuencias:** [SEQ-02](../03-design/sequences/02-initial-download.md), [SEQ-08](../03-design/sequences/08-sync-push.md), [SEQ-09](../03-design/sequences/09-sync-pull-and-conflicts.md).
 
 ### S3-H01 · Esquema del libro y protocolo de sincronización (5 + 8 pts, dos PR: H01a pull, H01b push)
 
@@ -210,7 +210,7 @@ Pantallas: **Iniciar Sesión**, **Registro**, **Ajustes** (perfil y cerrar sesi�
 
 **Objetivo:** administrar cuentas y categorías y ver el saldo en Inicio.
 **Prueba del PO:** AT-HU13-1, AT-HU13-2; crear cuentas de efectivo, débito y ahorros y verlas en el carrusel y en el saldo total; crear, renombrar y eliminar (con reasignación) categorías.
-**Secuencias:** [SEQ-12](../03-design/sequences/12-quitar-cuenta.md).
+**Secuencias:** [SEQ-12](../03-design/sequences/12-remove-account.md).
 
 ### S4-H01 · Gestión de cuentas (8 pts)
 
@@ -253,7 +253,7 @@ Pantalla: **Inicio (con Próximos Pagos)** (sin pendientes ni etiquetas todavía
 
 **Objetivo:** registrar gastos, ingresos y transferencias (también sin conexión), consultarlos con filtros y búsqueda, editarlos y eliminarlos.
 **Prueba del PO:** AT-HU01-1 a 3, AT-HU02-1, AT-HU03-1 a 3, AT-HU05-1.
-**Secuencias:** [SEQ-04](../03-design/sequences/04-registrar-gasto-o-ingreso.md), [SEQ-05](../03-design/sequences/05-transferencia.md), [SEQ-14 §14.1](../03-design/sequences/14-editar-eliminar-y-restaurar.md).
+**Secuencias:** [SEQ-04](../03-design/sequences/04-record-expense-or-income.md), [SEQ-05](../03-design/sequences/05-transfer.md), [SEQ-14 §14.1](../03-design/sequences/14-edit-delete-and-restore.md).
 
 ### S5-H01 · Registrar gasto, ingreso y transferencia (8 pts)
 
@@ -296,7 +296,7 @@ Pantallas: **Detalle de transacción**, **Diálogo · Eliminar transacción**.
 
 **Objetivo:** programar gastos recurrentes, verlos como pendientes en Inicio, pagarlos, omitirlos o finalizarlos y recibir avisos.
 **Prueba del PO:** AT-HU07-1 a 3; recibir la notificación de un pendiente.
-**Secuencia:** [SEQ-10](../03-design/sequences/10-pendientes-recurrentes-y-avisos.md).
+**Secuencia:** [SEQ-10](../03-design/sequences/10-pending-recurring-and-reminders.md).
 
 ### S6-H01 · Recurrentes (8 pts)
 
@@ -334,7 +334,7 @@ Pantallas: **Inicio** (Próximos pagos), **Hoja · Pendiente**, **Hoja · Pagar 
 
 **Objetivo:** registrar tarjetas, compras a cuotas con su tasa y pagar la tarjeta (mínimo o total).
 **Prueba del PO:** AT-HU08-1 a 3, AT-HU09-1 y 2.
-**Secuencias:** [SEQ-06](../03-design/sequences/06-compra-con-tarjeta-a-cuotas.md), [SEQ-07](../03-design/sequences/07-pagar-tarjeta.md).
+**Secuencias:** [SEQ-06](../03-design/sequences/06-card-purchase-in-installments.md), [SEQ-07](../03-design/sequences/07-pay-credit-card.md).
 
 ### S7-H01 · Tarjetas y motor de cuotas (8 pts)
 
@@ -376,7 +376,7 @@ Pantallas: **Hoja · Pagar tarjeta**, **Detalle de transacción · Pago de tarje
 
 **Objetivo:** traer el histórico de Cashew, exportar a CSV y publicar la versión 1.0 en producción.
 **Prueba del PO:** AT-HU11-1 a 3; humo completo en producción; escenarios de calidad E1–E9.
-**Secuencia:** [SEQ-13](../03-design/sequences/13-importar-y-exportar.md).
+**Secuencia:** [SEQ-13](../03-design/sequences/13-import-and-export.md).
 
 ### S8-H01 · Importación (8 pts)
 
@@ -441,7 +441,7 @@ Pantallas: **Etiquetas**, **Detalle de etiqueta**, **Hoja · Nueva etiqueta**; s
 
 **Objetivo:** registrar préstamos recibidos (detallado o simple), pagar sus cuotas y hacer abonos a capital.
 **Prueba del PO:** AT-HU14-1 y 2.
-**Secuencia:** [SEQ-11](../03-design/sequences/11-prestamo-y-abono-a-capital.md).
+**Secuencia:** [SEQ-11](../03-design/sequences/11-loan-and-principal-payment.md).
 
 ### S10-H01 · Registro y plan del préstamo (8 pts)
 

@@ -6,10 +6,10 @@
 | Parte de | [Detailed Design (IEEE 1016-2009)](detailed-design.md), vista de información (§6.5) |
 | Versión | 1.0 · 2026-10-09 |
 | Motores | PostgreSQL 16 (servidor, con Flyway) · SQLite con SQLCipher (dispositivo, con Room 2.8) |
-| Decisiones | [ADR-0003 Flyway](../02-architecture/adr/0003-flyway-para-migraciones.md), [ADR-0004 Montos](../02-architecture/adr/0004-montos-numeric-bigdecimal.md), [ADR-0006 Sincronización](../02-architecture/adr/0006-protocolo-de-sincronizacion.md) |
+| Decisiones | [ADR-0003 Flyway](../02-architecture/adr/0003-flyway-for-migrations.md), [ADR-0004 Montos](../02-architecture/adr/0004-numeric-bigdecimal-amounts.md), [ADR-0006 Sincronización](../02-architecture/adr/0006-sync-protocol.md) |
 | Requisitos | SRS §7.4, RNF-12, RNF-17, REQ-SYN-01 a 05 |
 
-Este documento es la **fuente de verdad del esquema físico**. El modelo de la arquitectura ([`modelo-de-datos.md`](../02-architecture/diagrams/modelo-de-datos.md)) es la vista lógica resumida.
+Este documento es la **fuente de verdad del esquema físico**. El modelo de la arquitectura ([`data-model.md`](../02-architecture/diagrams/data-model.md)) es la vista lógica resumida.
 
 ## 1. Convenciones
 

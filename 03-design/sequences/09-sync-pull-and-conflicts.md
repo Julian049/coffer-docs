@@ -1,6 +1,6 @@
 # SEQ-09 · Sincronización: pull incremental y resolución de conflictos
 
-Requisitos: REQ-SYN-02, 03, 05, RNF-07 · Decisión: [ADR-0006](../../02-architecture/adr/0006-protocolo-de-sincronizacion.md)
+Requisitos: REQ-SYN-02, 03, 05, RNF-07 · Decisión: [ADR-0006](../../02-architecture/adr/0006-sync-protocol.md)
 
 ## 9.1 Pull
 

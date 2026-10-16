@@ -7,7 +7,7 @@
 | Versión del documento | 1.0 (arquitectura objetivo para la v1.0 del producto) |
 | Fecha | 2026-10-09 |
 | Responsable | @Julian (product owner y arquitecto) |
-| Requisitos de origen | [SRS — Aplicación de Finanzas Personales v1.0](../01-requirements/SRS%20—%20Aplicación%20de%20Finanzas%20Personales.md) |
+| Requisitos de origen | [SRS — Aplicación de Finanzas Personales v1.0](../01-requirements/srs.md) |
 | Norma | ISO/IEC/IEEE 42010:2022, *Architecture description* |
 | Plantilla | arc42 (versión 8) |
 | Arquitectura anterior | [`legacy/`](legacy/) (MVP v0.1.0) |
@@ -87,11 +87,11 @@ Las cinco metas que más condicionan la arquitectura, en orden de prioridad:
 
 | Punto de vista | Modelo o notación | Intereses | Vista |
 | --- | --- | --- | --- |
-| Contexto | C4 nivel 1 (Mermaid `C4Context`) | C1, C5 | [c4-1-contexto](diagrams/c4-1-contexto.md) |
-| Composición | C4 niveles 2 y 3 (`C4Container`, `C4Component`) | C1, C4, C6 | [contenedores](diagrams/c4-2-contenedores.md), [componentes del servidor](diagrams/c4-3-componentes-servidor.md), [componentes de la app](diagrams/c4-3-componentes-app.md) |
-| Comportamiento | Diagramas de secuencia | C1, C2, C3 | [vistas-dinamicas](diagrams/vistas-dinamicas.md) |
-| Despliegue | C4 de despliegue (`C4Deployment`) | C4, C5 | [c4-4-despliegue](diagrams/c4-4-despliegue.md) |
-| Información | Diagrama entidad-relación | C2, C3, C7 | [modelo-de-datos](diagrams/modelo-de-datos.md) |
+| Contexto | C4 nivel 1 (Mermaid `C4Context`) | C1, C5 | [c4-1-context](diagrams/c4-1-context.md) |
+| Composición | C4 niveles 2 y 3 (`C4Container`, `C4Component`) | C1, C4, C6 | [contenedores](diagrams/c4-2-containers.md), [componentes del servidor](diagrams/c4-3-components-server.md), [componentes de la app](diagrams/c4-3-components-app.md) |
+| Comportamiento | Diagramas de secuencia | C1, C2, C3 | [dynamic-views](diagrams/dynamic-views.md) |
+| Despliegue | C4 de despliegue (`C4Deployment`) | C4, C5 | [c4-4-deployment](diagrams/c4-4-deployment.md) |
+| Información | Diagrama entidad-relación | C2, C3, C7 | [data-model](diagrams/data-model.md) |
 | Decisiones | ADR (MADR) | Todos | [adr/](adr/) |
 
 Se elige C4 porque separa la descripción por niveles de zoom que coinciden con las preguntas de cada parte interesada (usuario y evaluador: contexto; operador: contenedores y despliegue; desarrollador: componentes).
@@ -110,11 +110,11 @@ Se elige C4 porque separa la descripción por niveles de zoom que coinciden con 
 
 | Restricción | Origen | Consecuencia |
 | --- | --- | --- |
-| Solo Android en la v1.0, mínimo Android 12 (API 31) | SRS §2.4, RNF-01 | `minSdk 31` ([ADR-0011](adr/0011-stack-del-cliente-android.md)) |
+| Solo Android en la v1.0, mínimo Android 12 (API 31) | SRS §2.4, RNF-01 | `minSdk 31` ([ADR-0011](adr/0011-android-client-stack.md)) |
 | Cliente en Kotlin; API en Java | SRS §2.4 | Kotlin 2.2 + Compose; Java 21 + Spring Boot 4 |
-| Backend como servicio independiente con Spring Boot + PostgreSQL; Room en el cliente | RNF-18 | [ADR-0002](adr/0002-servicio-unico-en-la-nube-spring-boot.md) |
-| Migraciones con Flyway (ya en uso) | Código existente | [ADR-0003](adr/0003-flyway-para-migraciones.md) |
-| Hosting gratuito con arranque en frío | SRS §2.4 | Cliente tolerante a red lenta; [ADR-0009](adr/0009-hosting-gratuito.md) |
+| Backend como servicio independiente con Spring Boot + PostgreSQL; Room en el cliente | RNF-18 | [ADR-0002](adr/0002-single-spring-boot-cloud-service.md) |
+| Migraciones con Flyway (ya en uso) | Código existente | [ADR-0003](adr/0003-flyway-for-migrations.md) |
+| Hosting gratuito con arranque en frío | SRS §2.4 | Cliente tolerante a red lenta; [ADR-0009](adr/0009-free-tier-hosting.md) |
 | Una sola moneda por usuario (COP por defecto), sin conversión | SRS §2.4 | `users.currency`; sin tipos de cambio |
 | Google Play restringe la lectura de SMS | SRS §2.4 | F19 queda en backlog; no se piden permisos de SMS |
 
@@ -138,7 +138,7 @@ Se elige C4 porque separa la descripción por niveles de zoom que coinciden con 
 
 ### 3.1 Contexto de negocio
 
-Ver [C4 nivel 1](diagrams/c4-1-contexto.md).
+Ver [C4 nivel 1](diagrams/c4-1-context.md).
 
 | Socio | Entrada al sistema | Salida del sistema |
 | --- | --- | --- |
@@ -168,12 +168,12 @@ Versión web, multiusuario y finanzas compartidas, multimoneda, desbloqueo biom�
 
 | Problema | Estrategia | ADR |
 | --- | --- | --- |
-| Operar sin red (Q1) | **Local-first**: Room cifrada como fuente de verdad; la red solo sincroniza en segundo plano | [0005](adr/0005-offline-first-room-fuente-de-verdad.md) |
-| No perder ni duplicar (Q2) | Ids UUID del cliente, push por lotes idempotente, pull con cursor, borrado lógico y último cambio gana | [0006](adr/0006-protocolo-de-sincronizacion.md) |
-| Exactitud financiera (Q2, Q3) | `NUMERIC`/`BigDecimal`; un único motor financiero en el dominio Kotlin | [0004](adr/0004-montos-numeric-bigdecimal.md), [0010](adr/0010-logica-financiera-en-el-cliente.md) |
-| Seguridad (Q4) | JWT propio con refresh rotativo; SQLCipher + Keystore; HTTPS | [0007](adr/0007-autenticacion-jwt-propio.md), [0008](adr/0008-seguridad-en-el-dispositivo.md) |
-| Costo cero y simplicidad (Q5) | Un servicio Spring Boot (monolito modular) en hosting gratuito | [0002](adr/0002-servicio-unico-en-la-nube-spring-boot.md), [0009](adr/0009-hosting-gratuito.md) |
-| Evolución del esquema | Flyway con migraciones SQL versionadas | [0003](adr/0003-flyway-para-migraciones.md) |
+| Operar sin red (Q1) | **Local-first**: Room cifrada como fuente de verdad; la red solo sincroniza en segundo plano | [0005](adr/0005-offline-first-room-source-of-truth.md) |
+| No perder ni duplicar (Q2) | Ids UUID del cliente, push por lotes idempotente, pull con cursor, borrado lógico y último cambio gana | [0006](adr/0006-sync-protocol.md) |
+| Exactitud financiera (Q2, Q3) | `NUMERIC`/`BigDecimal`; un único motor financiero en el dominio Kotlin | [0004](adr/0004-numeric-bigdecimal-amounts.md), [0010](adr/0010-financial-logic-on-client.md) |
+| Seguridad (Q4) | JWT propio con refresh rotativo; SQLCipher + Keystore; HTTPS | [0007](adr/0007-self-issued-jwt-auth.md), [0008](adr/0008-on-device-security.md) |
+| Costo cero y simplicidad (Q5) | Un servicio Spring Boot (monolito modular) en hosting gratuito | [0002](adr/0002-single-spring-boot-cloud-service.md), [0009](adr/0009-free-tier-hosting.md) |
+| Evolución del esquema | Flyway con migraciones SQL versionadas | [0003](adr/0003-flyway-for-migrations.md) |
 
 ### 4.2 Estilo arquitectónico
 
@@ -203,7 +203,7 @@ Cada incremento se puede publicar por sí mismo. El orden sigue la prioridad del
 
 ### 5.1 Nivel 1 — Contenedores
 
-Ver [C4 nivel 2](diagrams/c4-2-contenedores.md).
+Ver [C4 nivel 2](diagrams/c4-2-containers.md).
 
 | Bloque | Responsabilidad | Interfaz principal |
 | --- | --- | --- |
@@ -216,7 +216,7 @@ Ver [C4 nivel 2](diagrams/c4-2-contenedores.md).
 
 ### 5.2 Nivel 2 — Coffer Server
 
-Ver [componentes del servidor](diagrams/c4-3-componentes-servidor.md).
+Ver [componentes del servidor](diagrams/c4-3-components-server.md).
 
 | Módulo | Responsabilidad | Interfaces que ofrece |
 | --- | --- | --- |
@@ -227,7 +227,7 @@ Ver [componentes del servidor](diagrams/c4-3-componentes-servidor.md).
 
 ### 5.3 Nivel 2 — App Android
 
-Ver [componentes de la app](diagrams/c4-3-componentes-app.md).
+Ver [componentes de la app](diagrams/c4-3-components-app.md).
 
 | Paquete | Responsabilidad |
 | --- | --- |
@@ -260,7 +260,7 @@ Ver [componentes de la app](diagrams/c4-3-componentes-app.md).
 
 ## 6. Vista de ejecución
 
-Escenarios detallados en [`diagrams/vistas-dinamicas.md`](diagrams/vistas-dinamicas.md):
+Escenarios detallados en [`diagrams/dynamic-views.md`](diagrams/dynamic-views.md):
 
 | Escenario | Qué demuestra | Metas |
 | --- | --- | --- |
@@ -279,7 +279,7 @@ Escenarios adicionales que se resuelven con las mismas piezas:
 
 ## 7. Vista de despliegue
 
-Ver [C4 de despliegue](diagrams/c4-4-despliegue.md).
+Ver [C4 de despliegue](diagrams/c4-4-deployment.md).
 
 | Nodo | Artefacto | Configuración |
 | --- | --- | --- |
@@ -296,7 +296,7 @@ Entornos: local (Docker Compose + emulador), CI (Testcontainers) y producción. 
 
 ### 8.1 Modelo de dominio y datos
 
-Ver [modelo-de-datos.md](diagrams/modelo-de-datos.md). Principios:
+Ver [data-model.md](diagrams/data-model.md). Principios:
 - Todas las entidades sincronizables comparten `id` UUID del cliente, `user_id`, `created_at`, `updated_at`, `deleted_at` y `version`.
 - Los saldos, los pendientes y "lo que vence" **se calculan**, no se guardan.
 - Una compra con tarjeta es una transacción `EXPENSE` en la cuenta de la tarjeta. Si tiene 2 o más cuotas, además tiene una `deferred_purchase` con su plan de cuotas.
@@ -305,7 +305,7 @@ Ver [modelo-de-datos.md](diagrams/modelo-de-datos.md). Principios:
 
 ### 8.2 Dinero, tasas y tiempo
 
-- `Money` con `BigDecimal`, escala y redondeo centralizados ([ADR-0004](adr/0004-montos-numeric-bigdecimal.md)).
+- `Money` con `BigDecimal`, escala y redondeo centralizados ([ADR-0004](adr/0004-numeric-bigdecimal-amounts.md)).
 - Tasas guardadas con su tipo (`EA` o `MV`); se convierten en `RateConverter`. El interés de cada cuota usa un mes comercial de 30 días (REQ-TC-15).
 - Las fechas con hora se guardan en UTC (`Instant`) y se muestran en la zona del dispositivo (`America/Bogota`). Las fechas de vencimiento y de inicio son `LocalDate`.
 - Los listados se ordenan por `occurred_at`, nunca por fecha de registro (REQ-TRX-06).
@@ -313,7 +313,7 @@ Ver [modelo-de-datos.md](diagrams/modelo-de-datos.md). Principios:
 
 ### 8.3 Sincronización y consistencia
 
-Protocolo en [ADR-0006](adr/0006-protocolo-de-sincronizacion.md):
+Protocolo en [ADR-0006](adr/0006-sync-protocol.md):
 - Cada escritura local es atómica (una transacción de Room) y deja sus filas en `PENDING`.
 - Siempre push antes que pull; consistencia eventual entre dispositivos.
 - Se guarda el historial de cambios (`change_log`) en la misma transacción que el cambio (REQ-HIS-01). Se sincroniza como solo-agregar y se purga a los 90 días en ambos lados (REQ-HIS-04).
@@ -332,13 +332,13 @@ Protocolo en [ADR-0006](adr/0006-protocolo-de-sincronizacion.md):
 
 ### 8.5 Manejo de errores
 
-- **Servidor:** `ProblemDetail` (RFC 9457) con `code` estable ([ADR-0012](adr/0012-contrato-api-v1-y-errores.md)).
+- **Servidor:** `ProblemDetail` (RFC 9457) con `code` estable ([ADR-0012](adr/0012-api-v1-contract-and-errors.md)).
 - **App:** los casos de uso devuelven `Result<T, DomainError>`. La UI muestra mensajes en español junto al campo afectado. Los errores de red nunca se muestran como error: se convierten en "N pendientes".
 
 ### 8.6 Evolución y escalabilidad
 
 - **Multiusuario o finanzas compartidas:** el `user_id` ya está en todas las tablas (RNF-17). Para compartir cuentas haría falta una tabla de membresía, pero no migrar datos.
-- **Web:** consumiría la misma API; la lógica de `domain/finance` se extraería a Kotlin Multiplatform ([ADR-0010](adr/0010-logica-financiera-en-el-cliente.md)).
+- **Web:** consumiría la misma API; la lógica de `domain/finance` se extraería a Kotlin Multiplatform ([ADR-0010](adr/0010-financial-logic-on-client.md)).
 - **Multimoneda:** `currency` ya existe en usuario y `Money`.
 
 ### 8.7 Pruebas
@@ -370,18 +370,18 @@ Registro completo en [`adr/`](adr/README.md):
 
 | ADR | Decisión | Estado |
 | --- | --- | --- |
-| [0001](adr/0001-registrar-decisiones-con-adr.md) | Registrar decisiones con ADR (MADR) | Aceptado |
-| [0002](adr/0002-servicio-unico-en-la-nube-spring-boot.md) | Un único servicio Spring Boot 4 en la nube (monolito modular) | Aceptado |
-| [0003](adr/0003-flyway-para-migraciones.md) | Flyway como única vía de cambio del esquema | Aceptado |
-| [0004](adr/0004-montos-numeric-bigdecimal.md) | `NUMERIC(19,4)` + `BigDecimal` | Aceptado |
-| [0005](adr/0005-offline-first-room-fuente-de-verdad.md) | Room como fuente de verdad (offline-first) | Aceptado |
-| [0006](adr/0006-protocolo-de-sincronizacion.md) | Push/pull con cursor y último cambio gana | Aceptado |
-| [0007](adr/0007-autenticacion-jwt-propio.md) | JWT propio, refresh rotativo y Google | Aceptado |
-| [0008](adr/0008-seguridad-en-el-dispositivo.md) | SQLCipher + Keystore | Aceptado |
-| [0009](adr/0009-hosting-gratuito.md) | Render + Neon | Propuesto |
-| [0010](adr/0010-logica-financiera-en-el-cliente.md) | Lógica financiera en el cliente | Aceptado |
-| [0011](adr/0011-stack-del-cliente-android.md) | Stack del cliente Android | Aceptado |
-| [0012](adr/0012-contrato-api-v1-y-errores.md) | Contrato `/api/v1` y errores RFC 9457 | Aceptado |
+| [0001](adr/0001-record-architecture-decisions.md) | Registrar decisiones con ADR (MADR) | Aceptado |
+| [0002](adr/0002-single-spring-boot-cloud-service.md) | Un único servicio Spring Boot 4 en la nube (monolito modular) | Aceptado |
+| [0003](adr/0003-flyway-for-migrations.md) | Flyway como única vía de cambio del esquema | Aceptado |
+| [0004](adr/0004-numeric-bigdecimal-amounts.md) | `NUMERIC(19,4)` + `BigDecimal` | Aceptado |
+| [0005](adr/0005-offline-first-room-source-of-truth.md) | Room como fuente de verdad (offline-first) | Aceptado |
+| [0006](adr/0006-sync-protocol.md) | Push/pull con cursor y último cambio gana | Aceptado |
+| [0007](adr/0007-self-issued-jwt-auth.md) | JWT propio, refresh rotativo y Google | Aceptado |
+| [0008](adr/0008-on-device-security.md) | SQLCipher + Keystore | Aceptado |
+| [0009](adr/0009-free-tier-hosting.md) | Render + Neon | Propuesto |
+| [0010](adr/0010-financial-logic-on-client.md) | Lógica financiera en el cliente | Aceptado |
+| [0011](adr/0011-android-client-stack.md) | Stack del cliente Android | Aceptado |
+| [0012](adr/0012-api-v1-contract-and-errors.md) | Contrato `/api/v1` y errores RFC 9457 | Aceptado |
 
 ---
 

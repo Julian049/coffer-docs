@@ -1,6 +1,6 @@
 # C4 · Despliegue
 
-Vista de despliegue (punto de vista *Despliegue*). Muestra dónde corre cada contenedor en la v1.0. El proveedor recomendado se justifica en [ADR-0009](../adr/0009-hosting-gratuito.md).
+Vista de despliegue (punto de vista *Despliegue*). Muestra dónde corre cada contenedor en la v1.0. El proveedor recomendado se justifica en [ADR-0009](../adr/0009-free-tier-hosting.md).
 
 ```mermaid
 C4Deployment

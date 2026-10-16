@@ -6,7 +6,7 @@ Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: españo
 
 | Versión | Fecha | Cambio |
 | --- | --- | --- |
-| 2.0 | 2026-10-15 | Paleta **Espresso** para la marca Coffer: claro "Porcelana" con acento caramelo y oscuro espresso; nuevos tokens `accent` y `on-accent` |
+| 2.0 | 2026-10-15 | Paleta **Espresso** para la marca Coffer: claro "Porcelana" y oscuro espresso. Un solo color de marca (`primary`), también en el botón flotante |
 | 1.0 | 2026-10-07 | Paleta salvia original ("Finance App") |
 
 ---
@@ -14,7 +14,7 @@ Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: españo
 ## 1. Concepto
 
 - **Limpio, con alma de café.** El modo claro es casi blanco y cálido (porcelana); el modo oscuro es café espresso. El café vive en los **detalles**: color principal, íconos, chips seleccionados y navegación. Nunca se tiñe toda la pantalla de beige.
-- **Dos colores de marca:** `primary` (espresso en claro, latte en oscuro) para acciones, selección y navegación, y `accent` (caramelo) **solo** para la acción principal flotante (botón +). Ninguno se usa como fondo de áreas grandes.
+- **Un solo color de marca:** `primary` (espresso en claro, latte en oscuro) para botones, botón flotante, selección y navegación. Nunca como fondo de áreas grandes.
 - **Bordes finos** en todas las superficies elevadas, en lugar de sombras: contornos de 1 px sutiles, sin desenfoques ni transparencias.
 - **El significado financiero manda sobre la marca:** verde para ingresos, rojo para gastos y deudas, dorado para avisos. Ningún color de marca se parece a esos tres.
 - La app tiene **modo claro y modo oscuro** con los mismos tokens.
@@ -34,12 +34,10 @@ Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: españo
 | `border-highlight` | `#D8CFC5` | Borde de la tarjeta destacada |
 | `text-primary` | `#241C17` | Texto principal y montos neutros |
 | `text-secondary` | `#74695F` | Etiquetas, subtítulos, metadatos, placeholders |
-| `primary` | `#4A3328` | Botón principal, elemento activo, enlaces |
+| `primary` | `#4A3328` | Botones principales y flotante, elemento activo, enlaces |
 | `on-primary` | `#FFFFFF` | Texto e íconos sobre `primary` |
 | `primary-container` | `#EFE7DE` | Fondo de chip, filtro o pestaña seleccionada |
 | `on-primary-container` | `#3B271E` | Texto sobre `primary-container` |
-| `accent` | `#9C5F33` | Botón flotante (acción principal) |
-| `on-accent` | `#FFFFFF` | Ícono sobre `accent` |
 | `icon-container` | `#F3EEE8` | Fondo circular de íconos de categoría |
 | `icon-on-container` | `#6B4A38` | Ícono dentro de `icon-container` |
 
@@ -54,12 +52,10 @@ Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: españo
 | `border-highlight` | `#4E4036` | Borde de la tarjeta destacada |
 | `text-primary` | `#F1E8DF` | Texto principal y montos neutros |
 | `text-secondary` | `#B0A194` | Etiquetas, subtítulos, metadatos, placeholders |
-| `primary` | `#D9B99A` | Botón principal, elemento activo, enlaces (tono latte) |
+| `primary` | `#D9B99A` | Botones principales y flotante, elemento activo, enlaces (tono latte) |
 | `on-primary` | `#2A1C14` | Texto e íconos sobre `primary` |
 | `primary-container` | `#3E2E24` | Fondo de chip, filtro o pestaña seleccionada |
 | `on-primary-container` | `#F0DCC6` | Texto sobre `primary-container` |
-| `accent` | `#D08D58` | Botón flotante (acción principal) |
-| `on-accent` | `#2A1C14` | Ícono sobre `accent` |
 | `icon-container` | `#2C231E` | Fondo circular de íconos de categoría |
 | `icon-on-container` | `#D9B99A` | Ícono dentro de `icon-container` |
 
@@ -80,7 +76,7 @@ Reglas de color:
 - Los ingresos van en verde y los gastos en rojo; las transferencias **siempre en neutro**, porque no son ni gasto ni ingreso.
 - El saldo de una tarjeta de crédito o préstamo es una deuda y se muestra en `expense`, en negativo.
 - La urgencia de un pendiente escala de `text-secondary` (lejano) a `warning` (próximo) y a `danger` (vencido).
-- `accent` se usa **solo** en el botón flotante; no en botones de formulario, chips ni textos.
+- El botón flotante (+) y los botones de confirmar o guardar usan el mismo `primary`: una sola familia de acciones.
 - Los montos principales (saldos) van en `text-primary`, no en color.
 
 ### En Figma
@@ -149,5 +145,5 @@ Los tokens son las variables `color/<token>` de la colección **"Finance App · 
 - Gradientes, sombras, desenfoques o efectos de brillo.
 - Colores decorativos adicionales a los de esta guía.
 - Teñir fondos completos de beige, crema o café en modo claro: el fondo es `background` y las tarjetas `surface`.
-- `primary` o `accent` como fondo de áreas grandes, o `accent` fuera del botón flotante.
+- `primary` como fondo de áreas grandes, o colores de marca adicionales para botones.
 - Montos de transferencia en rojo o verde.

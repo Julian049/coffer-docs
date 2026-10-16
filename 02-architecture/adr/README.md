@@ -21,7 +21,7 @@ Cada decisión significativa se registra como un ADR con el formato [MADR 4](htt
 | [0006](0006-sync-protocol.md) | Sincronización push/pull con cursor y último cambio gana | Aceptado |
 | [0007](0007-self-issued-jwt-auth.md) | Autenticación con JWT propio, refresh rotativo y Google | Aceptado |
 | [0008](0008-on-device-security.md) | Room cifrada con SQLCipher y tokens en Android Keystore | Aceptado |
-| [0009](0009-free-tier-hosting.md) | Hosting gratuito: Render (API) + Neon (PostgreSQL) | Propuesto |
+| [0009](0009-free-tier-hosting.md) | Hosting gratuito: Render (API) + Neon (PostgreSQL) | Aceptado |
 | [0010](0010-financial-logic-on-client.md) | La lógica financiera vive en el dominio del cliente | Aceptado |
 | [0011](0011-android-client-stack.md) | Stack del cliente Android (minSdk 31, Compose, Hilt, kotlinx.serialization) | Aceptado |
 | [0012](0012-api-v1-contract-and-errors.md) | Contrato `/api/v1`, OpenAPI y errores RFC 9457 | Aceptado |

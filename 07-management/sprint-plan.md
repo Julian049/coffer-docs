@@ -528,4 +528,4 @@ Pantalla: **Personalizar inicio**; Ajustes.
 | Lista concreta de categorías base | S3-DAT07 | Planificación de S3 |
 | Columnas exactas del CSV de Cashew (y un archivo de ejemplo) | S8-H01 | Planificación de S8 |
 | Intereses de compras entre corte y pago | S7-DOM01 (`interestForGracePeriod`, hoy 0) | Planificación de S7 |
-| Proveedor de hosting (ADR-0009 *Propuesto*) | S1-OPS03 | Antes de S1 |
+| ~~Proveedor de hosting~~ | S1-OPS03 | Resuelta: ADR-0009 aceptado (2026-10-16) |

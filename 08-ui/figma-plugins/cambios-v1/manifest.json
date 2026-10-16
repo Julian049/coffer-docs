@@ -1,0 +1,10 @@
+{
+  "name": "Finance App - Cambios v1",
+  "id": "finance-app-cambios-v1-local",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": { "allowedDomains": ["none"] }
+}

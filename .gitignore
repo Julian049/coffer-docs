@@ -1,0 +1,13 @@
+# Sistema y editores
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+*Zone.Identifier
+.idea/
+.vscode/
+
+# Nunca versionar secretos ni llaves
+*.jks
+*.keystore
+*.pem
+.env

@@ -11,7 +11,7 @@ Descripción del diseño de software según **IEEE 1016-2009** (*Standard for In
 | Organización emisora | Proyecto Coffer · @Julian |
 | Autoría | @Julian (product owner y desarrollador), con redacción asistida por Claude |
 | Alcance del SDD | Diseño detallado de la app Android `coffer-app` y del servicio `coffer-server` |
-| Documentos de entrada | [SRS v1.0](../01-requirements/SRS%20—%20Aplicación%20de%20Finanzas%20Personales.md), [Arquitectura (arc42 + ISO/IEC/IEEE 42010)](../02-architecture/architecture.md), [ADR](../02-architecture/adr/README.md) |
+| Documentos de entrada | [SRS v1.0](../01-requirements/srs.md), [Arquitectura (arc42 + ISO/IEC/IEEE 42010)](../02-architecture/architecture.md), [ADR](../02-architecture/adr/README.md) |
 | Documentos del SDD | Este archivo · [data-model.md](data-model.md) (vista de información) · [sequences/](sequences/README.md) (vista de interacción) |
 
 ### Historial de cambios
@@ -108,7 +108,7 @@ Se aplican diez de los puntos de vista de IEEE 1016-2009 §5. No se usa el de *u
 
 ### 6.1 Vista de contexto
 
-Se reutiliza la vista de contexto de la arquitectura: [C4 nivel 1](../02-architecture/diagrams/c4-1-contexto.md). Servicios que ofrece el sistema a su único actor (el usuario), agrupados por caso de uso del SRS:
+Se reutiliza la vista de contexto de la arquitectura: [C4 nivel 1](../02-architecture/diagrams/c4-1-context.md). Servicios que ofrece el sistema a su único actor (el usuario), agrupados por caso de uso del SRS:
 
 | CU | Servicio | Contenedor |
 | --- | --- | --- |
@@ -413,7 +413,7 @@ Definida completamente en **[data-model.md](data-model.md)**:
 
 #### 6.6.1 API REST `/api/v1` (Coffer Server)
 
-Convenciones: JSON `camelCase`; montos como string decimal (`"28000.0000"`); instantes ISO-8601 en UTC; fechas `yyyy-MM-dd`; errores `application/problem+json` (RFC 9457) con `code` ([ADR-0012](../02-architecture/adr/0012-contrato-api-v1-y-errores.md)). El contrato formal se publica en `docs/04-api/openapi.yml`.
+Convenciones: JSON `camelCase`; montos como string decimal (`"28000.0000"`); instantes ISO-8601 en UTC; fechas `yyyy-MM-dd`; errores `application/problem+json` (RFC 9457) con `code` ([ADR-0012](../02-architecture/adr/0012-api-v1-contract-and-errors.md)). El contrato formal se publica en `docs/04-api/openapi.yml`.
 
 | Operación | Petición | Respuesta correcta | Errores |
 | --- | --- | --- | --- |
@@ -614,7 +614,7 @@ stateDiagram-v2
 
 ### 6.9 Vista de algoritmos
 
-Todos viven en `domain/finance` (Kotlin puro, `BigDecimal`, `MathContext.DECIMAL128` en los cálculos intermedios) salvo §6.9.7 y §6.9.8, que son del servidor ([ADR-0010](../02-architecture/adr/0010-logica-financiera-en-el-cliente.md)).
+Todos viven en `domain/finance` (Kotlin puro, `BigDecimal`, `MathContext.DECIMAL128` en los cálculos intermedios) salvo §6.9.7 y §6.9.8, que son del servidor ([ADR-0010](../02-architecture/adr/0010-financial-logic-on-client.md)).
 
 #### 6.9.1 `RateConverter` — REQ-TC-02
 

@@ -1,18 +1,28 @@
-# Design — App de finanzas personales
+# Sistema de diseño — Coffer
 
-Guía visual base: colores, bordes, formas y estilo de los elementos. **No define distribución ni composición de pantallas**; la organización de cada vista queda a criterio del diseñador.
+Guía visual base: colores, bordes, formas y estilo de los elementos. **No define distribución ni composición de pantallas**; la organización de cada vista está en el prototipo de Figma ([README](README.md)).
 
 Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: español. Moneda: pesos colombianos sin decimales, con punto como separador de miles (ejemplo: `$1.250.000`).
+
+| Versión | Fecha | Cambio |
+| --- | --- | --- |
+| 2.2 | 2026-10-15 | Ícono, logotipo y mascota (zorro-grano de café) en [icons/](icons/README.md) |
+| 2.1 | 2026-10-15 | Base **neutra** (blanco y grises cálidos) con detalles **caramelo** en selección e íconos; los botones conservan el **espresso** |
+| 2.0 | 2026-10-15 | Paleta Espresso para la marca Coffer: claro "Porcelana" y oscuro espresso |
+| 1.0 | 2026-10-07 | Paleta salvia original ("Finance App") |
 
 ---
 
 ## 1. Concepto
 
-- **Sobrio y limpio.** Base neutra, casi blanca en modo claro y grafito en modo oscuro.
-- **Un solo color de marca: salvia.** Se usa como acento, nunca como fondo grande.
-- **Bordes finos** en todas las superficies elevadas, en lugar de sombras. Inspiración ligera en el estilo "glass" de Apple: contornos de 1 px muy sutiles, sin desenfoques ni transparencias exageradas.
-- **Sin colores pastel cálidos.** No usar amarillos, durazno ni rosados como colores decorativos. El naranja se reserva solo para avisos.
-- La app debe tener **modo claro y modo oscuro** con los mismos tokens.
+- **Neutro y familiar.** Fondo y superficies en blanco y grises apenas cálidos, como las apps de finanzas habituales; nada de pantallas teñidas de café o beige.
+- **El café en tres lugares precisos:**
+  1. **Botones** (principales y flotante) en `primary`: espresso en claro, latte en oscuro.
+  2. **Selección y navegación** (chips, pestañas, indicador de la barra) en caramelo suave (`primary-container` / `on-primary-container`).
+  3. **Íconos de categoría** en caramelo (`icon-on-container`), además del logo y el ícono de la app.
+- **Bordes finos** en todas las superficies elevadas, en lugar de sombras: contornos de 1 px sutiles, sin desenfoques ni transparencias.
+- **El significado financiero manda sobre la marca:** verde para ingresos, rojo para gastos y deudas, dorado para avisos. Ningún color de marca se parece a esos tres.
+- La app tiene **modo claro y modo oscuro** con los mismos tokens.
 
 ---
 
@@ -22,55 +32,61 @@ Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: españo
 
 | Token | Hex | Uso |
 | --- | --- | --- |
-| `background` | `#F6F7F5` | Fondo general de la pantalla |
+| `background` | `#FAFAF9` | Fondo general de la pantalla |
 | `surface` | `#FFFFFF` | Tarjetas, listas, campos, hojas |
 | `surface-highlight` | `#FFFFFF` | Tarjeta destacada (por ejemplo, saldo principal) |
-| `border` | `#E4E7E3` | Borde de tarjetas, divisores, campos |
-| `border-highlight` | `#D5DDD6` | Borde de la tarjeta destacada |
-| `text-primary` | `#1F2622` | Texto principal y montos neutros |
-| `text-secondary` | `#6E7670` | Etiquetas, subtítulos, metadatos, placeholders |
-| `primary` | `#4F7D5E` | Botón principal, elemento activo, enlaces, acentos |
+| `border` | `#ECEAE7` | Borde de tarjetas, divisores, campos |
+| `border-highlight` | `#DAD6D1` | Borde de la tarjeta destacada |
+| `text-primary` | `#1C1917` | Texto principal y montos neutros |
+| `text-secondary` | `#78716C` | Etiquetas, subtítulos, metadatos, placeholders |
+| `primary` | `#4A3328` | Botones principales y flotante, enlaces (espresso) |
 | `on-primary` | `#FFFFFF` | Texto e íconos sobre `primary` |
-| `primary-container` | `#E4EEE6` | Fondo de chip o filtro seleccionado |
-| `on-primary-container` | `#2E4A37` | Texto sobre `primary-container` |
-| `icon-container` | `#EEF2EE` | Fondo circular de íconos de categoría |
-| `icon-on-container` | `#4F7D5E` | Ícono dentro de `icon-container` |
+| `primary-container` | `#F6E9DD` | Chip, filtro o pestaña seleccionada e indicador de navegación (caramelo suave) |
+| `on-primary-container` | `#7A4520` | Texto e ícono sobre `primary-container` |
+| `icon-container` | `#F8F0E8` | Fondo circular de íconos de categoría |
+| `icon-on-container` | `#9C5F33` | Ícono dentro de `icon-container` (caramelo) |
 
 ### Modo oscuro
 
 | Token | Hex | Uso |
 | --- | --- | --- |
-| `background` | `#111517` | Fondo general de la pantalla |
-| `surface` | `#1B2124` | Tarjetas, listas, campos, hojas |
-| `surface-highlight` | `#252C2F` | Tarjeta destacada (por ejemplo, saldo principal) |
-| `border` | `#283034` | Borde de tarjetas, divisores, campos |
-| `border-highlight` | `#3A4347` | Borde de la tarjeta destacada |
-| `text-primary` | `#EEF0EF` | Texto principal y montos neutros |
-| `text-secondary` | `#9AA3A6` | Etiquetas, subtítulos, metadatos, placeholders |
-| `primary` | `#9CC8A9` | Botón principal, elemento activo, enlaces, acentos |
-| `on-primary` | `#102016` | Texto e íconos sobre `primary` |
-| `primary-container` | `#253029` | Fondo de chip o filtro seleccionado |
-| `on-primary-container` | `#CFE5D6` | Texto sobre `primary-container` |
-| `icon-container` | `#252C2F` | Fondo circular de íconos de categoría |
-| `icon-on-container` | `#9CC8A9` | Ícono dentro de `icon-container` |
+| `background` | `#121110` | Fondo general de la pantalla |
+| `surface` | `#1C1A19` | Tarjetas, listas, campos, hojas |
+| `surface-highlight` | `#242120` | Tarjeta destacada |
+| `border` | `#2E2B29` | Borde de tarjetas, divisores, campos |
+| `border-highlight` | `#3F3B38` | Borde de la tarjeta destacada |
+| `text-primary` | `#F5F5F4` | Texto principal y montos neutros |
+| `text-secondary` | `#A8A29E` | Etiquetas, subtítulos, metadatos, placeholders |
+| `primary` | `#D9B99A` | Botones principales y flotante, enlaces (latte) |
+| `on-primary` | `#2A1C14` | Texto e íconos sobre `primary` |
+| `primary-container` | `#3A2A1E` | Chip, filtro o pestaña seleccionada e indicador de navegación |
+| `on-primary-container` | `#F0C9A6` | Texto e ícono sobre `primary-container` |
+| `icon-container` | `#2A221C` | Fondo circular de íconos de categoría |
+| `icon-on-container` | `#D08D58` | Ícono dentro de `icon-container` (caramelo) |
 
 ### Colores semánticos (finanzas)
 
 | Token | Claro | Oscuro | Uso |
 | --- | --- | --- | --- |
-| `income` | `#2E8B57` | `#6FCF97` | Montos de ingreso (con signo `+`) |
-| `expense` | `#D14B42` | `#F28B82` | Montos de gasto (con signo `−`) y deudas en negativo |
+| `income` | `#2F7A45` | `#8CC77F` | Montos de ingreso (con signo `+`) |
+| `expense` | `#B03A2E` | `#F0897C` | Montos de gasto (con signo `−`) y deudas en negativo |
 | `transfer` | = `text-secondary` | = `text-secondary` | Montos de transferencias entre cuentas (sin signo) |
-| `warning` | `#E08A4F` | `#EDA06B` | Pagos pendientes próximos a vencer |
+| `warning` | `#9A6B1F` | `#E0B25E` | Pagos pendientes próximos a vencer |
 | `danger` | = `expense` | = `expense` | Pendientes vencidos, acciones destructivas |
+
+Todos los pares de texto y fondo cumplen WCAG AA (≥ 4.5:1) sobre `background` y `surface` en su modo.
 
 Reglas de color:
 
 - Los ingresos van en verde y los gastos en rojo; las transferencias **siempre en neutro**, porque no son ni gasto ni ingreso.
 - El saldo de una tarjeta de crédito o préstamo es una deuda y se muestra en `expense`, en negativo.
 - La urgencia de un pendiente escala de `text-secondary` (lejano) a `warning` (próximo) y a `danger` (vencido).
-- `primary` es un acento: botones, selección, enlaces, íconos. No usarlo como fondo de tarjetas grandes.
+- El botón flotante (+) y los botones de confirmar o guardar usan el mismo `primary`: una sola familia de acciones.
 - Los montos principales (saldos) van en `text-primary`, no en color.
+
+### En Figma
+
+Los tokens son las variables `color/<token>` de la colección **"Finance App · Tokens"** (el nombre de la colección no cambió). El plan gratuito de Figma admite un solo modo, así que el valor es el del modo claro y el del oscuro está en la descripción de cada variable (`Claro #… · Oscuro #…`). En la app (Compose) se implementan ambos esquemas con los mismos nombres.
 
 ---
 
@@ -103,7 +119,7 @@ Reglas de color:
 - Dos pesos únicamente: **regular (400)** y **medium (500)**. Evitar negrita fuerte.
 - Montos importantes (saldo principal) grandes, en peso 500.
 - Etiquetas y metadatos en tamaño pequeño con `text-secondary`. Tamaño mínimo de texto: 11 sp.
-- Usar mayúscula inicial solamente ("Nuevo gasto", no "Nuevo Gasto" ni "NUEVO GASTO").
+- Usar mayúscula inicial solamente ("Nuevo gasto", no "Nuevo Gasto" ni "NUEVO GASTO"), tampoco con estilos de mayúsculas.
 
 ---
 
@@ -112,6 +128,7 @@ Reglas de color:
 - Íconos de **línea (outline)**, trazo uniforme, sin rellenos. Estilo similar a Material Symbols Outlined o Tabler Icons.
 - Los íconos de categoría van dentro de un círculo `icon-container` con el ícono en `icon-on-container`.
 - Tamaño de ícono: 16–20 dp dentro de listas, 24 dp en navegación.
+- Ícono de la app y logotipo: un **zorro cuyo cuerpo forma un grano de café**, en espresso y caramelo sobre `background`. Mascota: el mismo zorro en 8 estados según la salud financiera. Archivos, tamaños y usos en [icons/](icons/README.md).
 
 ---
 
@@ -120,7 +137,7 @@ Reglas de color:
 | Estado | Tratamiento |
 | --- | --- |
 | Seleccionado (chip, filtro, pestaña) | Fondo `primary-container`, texto `on-primary-container`, sin borde |
-| Activo en navegación | Ícono y etiqueta en `primary` |
+| Activo en navegación | Ícono y etiqueta en `primary`, con indicador en `primary-container` |
 | Inactivo en navegación | Ícono y etiqueta en `text-secondary` |
 | Presionado | Ligera capa del color de texto al 6–8 % sobre la superficie |
 | Deshabilitado | Texto `text-secondary` al 50 %; evitar cuando sea posible |
@@ -132,6 +149,6 @@ Reglas de color:
 
 - Gradientes, sombras, desenfoques o efectos de brillo.
 - Colores decorativos adicionales a los de esta guía.
-- Amarillo, durazno, rosado o pasteles cálidos como fondos.
-- `primary` como fondo de áreas grandes.
+- Teñir fondos o superficies de beige, crema o café: el fondo es neutro (`background`) y las tarjetas blancas (`surface`).
+- `primary` como fondo de áreas grandes, botones negros o colores de marca adicionales para botones.
 - Montos de transferencia en rojo o verde.

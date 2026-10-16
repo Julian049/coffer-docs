@@ -3,7 +3,7 @@
 | Campo | Valor |
 | --- | --- |
 | Prototipo | **[Figma · Finance App](https://www.figma.com/design/tiOOI1wfZyn2xaG9ENO9Wp/Finance-App)** (key `tiOOI1wfZyn2xaG9ENO9Wp`) |
-| Versión de referencia | `v1.0-prototipo-srs` (versión con nombre en el historial de Figma; manage-config CI-08) |
+| Versión de referencia | `v1.0-srs-prototype` (versión con nombre en el historial de Figma; manage-config CI-08) |
 | Sistema de diseño | [`design-system.md`](design-system.md) |
 | Requisitos | SRS §7.1, RNF-14, RNF-15, RNF-16 |
 
@@ -54,8 +54,8 @@ La página **"Archivo (versiones anteriores)"** guarda las pantallas reemplazada
 | Plugin | Uso |
 | --- | --- |
 | `inspector` | Exporta la estructura del archivo (frames, textos, colores, conexiones) a un `.txt` |
-| `cambios-v1` | Indicador mensual, agrupación por día, tarjeta de crédito, hojas de eliminar cuenta, tokens del `design.md` |
-| `ordenar-pantallas` | Agrupa los frames en secciones por flujo |
-| `prototipo-srs` | Crea las pantallas que faltaban según el SRS, la barra de 4 pestañas y todas las conexiones |
+| `changes-v1` | Indicador mensual, agrupación por día, tarjeta de crédito, hojas de eliminar cuenta, tokens del `design.md` |
+| `arrange-screens` | Agrupa los frames en secciones por flujo |
+| `srs-prototype` | Crea las pantallas que faltaban según el SRS, la barra de 4 pestañas y todas las conexiones |
 
 Se conservan como historial del diseño; ya se ejecutaron sobre el archivo y no deben volver a ejecutarse (los que modifican el archivo se detienen si detectan que ya se aplicaron).

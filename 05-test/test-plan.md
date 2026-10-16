@@ -25,7 +25,7 @@ Plan de pruebas del proyecto según **ISO/IEC/IEEE 29119-3:2021** (*Software tes
 | Id | Documento |
 | --- | --- |
 | [T1] | ISO/IEC/IEEE 29119-1, -2, -3 y -4 |
-| [T2] | [SRS v1.0](../01-requirements/SRS%20—%20Aplicación%20de%20Finanzas%20Personales.md): requisitos, historias de usuario y criterios de aceptación |
+| [T2] | [SRS v1.0](../01-requirements/srs.md): requisitos, historias de usuario y criterios de aceptación |
 | [T3] | [Arquitectura](../02-architecture/architecture.md) §10 (escenarios de calidad) y [ADR](../02-architecture/adr/README.md) |
 | [T4] | [Diseño detallado](../03-design/detailed-design.md) §8 (trazabilidad) y [modelo de datos](../03-design/data-model.md) |
 | [T5] | [Contrato de la API](../04-api/openapi.yml) |

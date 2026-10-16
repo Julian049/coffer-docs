@@ -6,6 +6,7 @@ Plataforma: Android, Material Design 3 como base. Idioma de la interfaz: españo
 
 | Versión | Fecha | Cambio |
 | --- | --- | --- |
+| 2.2 | 2026-10-15 | Ícono, logotipo y mascota (zorro-grano de café) en [icons/](icons/README.md) |
 | 2.1 | 2026-10-15 | Base **neutra** (blanco y grises cálidos) con detalles **caramelo** en selección e íconos; los botones conservan el **espresso** |
 | 2.0 | 2026-10-15 | Paleta Espresso para la marca Coffer: claro "Porcelana" y oscuro espresso |
 | 1.0 | 2026-10-07 | Paleta salvia original ("Finance App") |
@@ -127,7 +128,7 @@ Los tokens son las variables `color/<token>` de la colección **"Finance App · 
 - Íconos de **línea (outline)**, trazo uniforme, sin rellenos. Estilo similar a Material Symbols Outlined o Tabler Icons.
 - Los íconos de categoría van dentro de un círculo `icon-container` con el ícono en `icon-on-container`.
 - Tamaño de ícono: 16–20 dp dentro de listas, 24 dp en navegación.
-- Ícono de la app: un grano de café o una cereza de café con trazo simple, en `primary` sobre `background` (pendiente de diseño).
+- Ícono de la app y logotipo: un **zorro cuyo cuerpo forma un grano de café**, en espresso y caramelo sobre `background`. Mascota: el mismo zorro en 8 estados según la salud financiera. Archivos, tamaños y usos en [icons/](icons/README.md).
 
 ---
 

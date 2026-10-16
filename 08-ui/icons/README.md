@@ -68,7 +68,8 @@ Las reglas exactas (umbrales de cada estado) se definen en la historia que intro
 - **Componente "Estado del zorro"** (sección "Componentes"): una tarjeta con el zorro y un mensaje corto. Tiene la variante `Estado` = Normal, Bien, Meta cumplida, Atento, Preocupado o Deudas.
 - **Inicio** muestra la tarjeta debajo del saldo; la pantalla base está en el estado *Bien*.
 - **Sección "2b · Inicio según el estado financiero"**: una copia de Inicio por estado, con valores coherentes (saldo, tendencia, chip y pagos próximos). Incluye *Primer uso*, con el zorro descansando como estado vacío.
-- **Iniciar sesión** usa el zorro de bienvenida, y el encabezado de Inicio usa `coffer-mark`.
+- **Bienvenida** es la primera pantalla del prototipo. De arriba abajo tiene `coffer-mark`, el nombre "Coffer" (sin lema), el zorro de bienvenida y los botones "Comenzar" (va a Registro), "Continuar con Google" y "¿Ya tienes una cuenta? Inicia sesión" (va al formulario de correo).
+- **Iniciar sesión · Correo** y el encabezado de **Inicio** usan `coffer-mark`.
 
 ## Calidad
 

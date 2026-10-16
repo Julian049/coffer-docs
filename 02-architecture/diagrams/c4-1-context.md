@@ -39,4 +39,4 @@ C4Context
 | Sistema Android | Externo | Planificación en segundo plano, notificaciones locales, almacén de claves y archivos. | REQ-REC-09, RNF-09, §7.2 |
 | Archivos de Cashew | Externo | Fuente del histórico inicial. | HU-11, REQ-IMP-01 |
 
-> El SRS llama "microservicio de transacciones" al servicio en la nube. Es **un único servicio** independiente del APK, no varios microservicios. Ver [ADR-0002](../adr/0002-servicio-unico-en-la-nube-spring-boot.md).
+> El SRS llama "microservicio de transacciones" al servicio en la nube. Es **un único servicio** independiente del APK, no varios microservicios. Ver [ADR-0002](../adr/0002-single-spring-boot-cloud-service.md).

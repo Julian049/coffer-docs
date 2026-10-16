@@ -1,6 +1,6 @@
 # SEQ-08 · Sincronización: push de cambios locales
 
-Requisitos: REQ-SYN-01, 02, 04, RNF-06, RNF-07 · Decisión: [ADR-0006](../../02-architecture/adr/0006-protocolo-de-sincronizacion.md)
+Requisitos: REQ-SYN-01, 02, 04, RNF-06, RNF-07 · Decisión: [ADR-0006](../../02-architecture/adr/0006-sync-protocol.md)
 
 ```mermaid
 sequenceDiagram

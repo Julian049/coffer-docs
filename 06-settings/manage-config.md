@@ -31,7 +31,7 @@ Las acciones para cerrar estas brechas están en §8.
 
 ### 1.4 Referencias
 
-[SRS v1.0](../01-requirements/SRS%20—%20Aplicación%20de%20Finanzas%20Personales.md) · [Arquitectura](../02-architecture/architecture.md) y [ADR](../02-architecture/adr/README.md) · [Diseño detallado](../03-design/detailed-design.md) · [Contrato de la API](../04-api/openapi.yml) · [Plan de pruebas](../05-test/test-plan.md) · Semantic Versioning 2.0.0 · Conventional Commits 1.0.0 · Keep a Changelog 1.1.0.
+[SRS v1.0](../01-requirements/srs.md) · [Arquitectura](../02-architecture/architecture.md) y [ADR](../02-architecture/adr/README.md) · [Diseño detallado](../03-design/detailed-design.md) · [Contrato de la API](../04-api/openapi.yml) · [Plan de pruebas](../05-test/test-plan.md) · Semantic Versioning 2.0.0 · Conventional Commits 1.0.0 · Keep a Changelog 1.1.0.
 
 ### 1.5 Definiciones
 
@@ -73,7 +73,7 @@ Política para contribuciones con IA: los commits generados con asistencia inclu
 | CI-05 | Plan de pruebas y reportes | `docs/05-test/` | Identificador FA-TP-001 y versión |
 | CI-06 | Este plan | `docs/06-settings/manage-config.md` | FA-CMP-001 y versión |
 | CI-07 | Gestión y sprints | `docs/07-management/` | Versión en el documento |
-| CI-08 | Sistema de diseño y prototipo | `design.md` + Figma "Finance App" | Nombre de la versión guardada en el historial de Figma (`v1.0-prototipo-srs`, …) |
+| CI-08 | Sistema de diseño y prototipo | `design.md` + Figma "Finance App" | Nombre de la versión guardada en el historial de Figma (`v1.0-srs-prototype`, …) |
 | CI-09 | Código de la app | `coffer-app` | Tag `vX.Y.Z`; `versionName` y `versionCode` |
 | CI-10 | Código del servidor | `coffer-server` | Tag `vX.Y.Z`; `<version>` del `pom.xml` |
 | CI-11 | Migraciones Flyway | `coffer-server/src/main/resources/db/migration` | `V{n}`; tabla `flyway_schema_history` |
@@ -139,7 +139,7 @@ La fuente de verdad del alcance de cada versión es el [plan de sprints](../07-m
 | --- | --- | --- | --- |
 | **BL-0 · MVP** | `coffer-app` y `coffer-server` en `v0.1.0` | Establecida (despliegue mínimo) | Tags `v0.1.0` |
 | **BL-1 · Funcional** | SRS v1.0 (CI-01) | Aprobada el 2026-10-06 | `docs-v1.0.0` |
-| **BL-2 · Asignada / diseño** | Arquitectura 1.0, ADR 0001–0012, diseño detallado 1.0, modelo de datos, `openapi.yml` 1.0.0, plan de pruebas 1.0, este plan 1.0, prototipo de Figma `v1.0-prototipo-srs` | Por establecer al versionar `docs/` (§8) | `docs-v1.0.0` |
+| **BL-2 · Asignada / diseño** | Arquitectura 1.0, ADR 0001–0012, diseño detallado 1.0, modelo de datos, `openapi.yml` 1.0.0, plan de pruebas 1.0, este plan 1.0, prototipo de Figma `v1.0-srs-prototype` | Por establecer al versionar `docs/` (§8) | `docs-v1.0.0` |
 | **BL-3 · Producto** | `coffer-app` y `coffer-server` `v1.0.0` + base en V10 + docs de la release | Al terminar las historias *Must* | Tags `v1.0.0` |
 
 Cambiar una línea base establecida requiere un PR aprobado por el CCB y, si afecta a la arquitectura, un ADR.
@@ -409,5 +409,5 @@ Este plan es el CI-06: se modifica por PR y lo aprueba el CCB. Se revisa al cerr
 | A5 | Plantillas de Issue y PR, etiquetas y milestones por sprint | ambos | Desarrollador |
 | A6 | `ci.yml` de cada repositorio y `Dockerfile` del servidor | ambos | Desarrollador (sprint 1, I0) |
 | A7 | Crear los servicios de Render y las ramas de Neon; cargar los secretos | — | @Julian |
-| A8 | Guardar en Figma la versión con nombre `v1.0-prototipo-srs` | Figma | @Julian |
+| A8 | Guardar en Figma la versión con nombre `v1.0-srs-prototype` | Figma | @Julian |
 | A9 | Mover los plugins de Figma (`figma-plugins/`) a `coffer-docs/08-ui/figma-plugins/` para versionarlos | coffer-docs | Desarrollador |

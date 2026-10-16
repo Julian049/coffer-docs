@@ -40,9 +40,9 @@ C4Container
 
 | Contenedor | Tecnología | Responsabilidad | Decisiones |
 | --- | --- | --- | --- |
-| App Android | Kotlin 2.2, Compose, Material 3, Hilt, Navigation | Toda la funcionalidad del SRS sin red. Calcula saldos, planes de cuotas e intereses. | [ADR-0005](../adr/0005-offline-first-room-fuente-de-verdad.md), [ADR-0010](../adr/0010-logica-financiera-en-el-cliente.md), [ADR-0011](../adr/0011-stack-del-cliente-android.md) |
-| Base local | Room + SQLCipher | Fuente de verdad del dispositivo; cola de cambios por fila (`syncState`). | [ADR-0005](../adr/0005-offline-first-room-fuente-de-verdad.md), [ADR-0008](../adr/0008-seguridad-en-el-dispositivo.md) |
-| Worker de sincronización | WorkManager | Ejecuta push y pull con red, aunque la app esté cerrada. | [ADR-0006](../adr/0006-protocolo-de-sincronizacion.md) |
-| Almacén de secretos | Keystore + DataStore cifrado | Tokens que sobreviven al cierre de la app y a limpiar la caché. | [ADR-0008](../adr/0008-seguridad-en-el-dispositivo.md) |
-| Coffer Server | Spring Boot 4.0, Java 21 | Autenticación, emisión de JWT, protocolo de sincronización, aislamiento por usuario. | [ADR-0002](../adr/0002-servicio-unico-en-la-nube-spring-boot.md), [ADR-0007](../adr/0007-autenticacion-jwt-propio.md) |
-| Base de respaldo | PostgreSQL 16 + Flyway | Persistencia por usuario; migraciones versionadas. | [ADR-0003](../adr/0003-flyway-para-migraciones.md), [ADR-0004](../adr/0004-montos-numeric-bigdecimal.md) |
+| App Android | Kotlin 2.2, Compose, Material 3, Hilt, Navigation | Toda la funcionalidad del SRS sin red. Calcula saldos, planes de cuotas e intereses. | [ADR-0005](../adr/0005-offline-first-room-source-of-truth.md), [ADR-0010](../adr/0010-financial-logic-on-client.md), [ADR-0011](../adr/0011-android-client-stack.md) |
+| Base local | Room + SQLCipher | Fuente de verdad del dispositivo; cola de cambios por fila (`syncState`). | [ADR-0005](../adr/0005-offline-first-room-source-of-truth.md), [ADR-0008](../adr/0008-on-device-security.md) |
+| Worker de sincronización | WorkManager | Ejecuta push y pull con red, aunque la app esté cerrada. | [ADR-0006](../adr/0006-sync-protocol.md) |
+| Almacén de secretos | Keystore + DataStore cifrado | Tokens que sobreviven al cierre de la app y a limpiar la caché. | [ADR-0008](../adr/0008-on-device-security.md) |
+| Coffer Server | Spring Boot 4.0, Java 21 | Autenticación, emisión de JWT, protocolo de sincronización, aislamiento por usuario. | [ADR-0002](../adr/0002-single-spring-boot-cloud-service.md), [ADR-0007](../adr/0007-self-issued-jwt-auth.md) |
+| Base de respaldo | PostgreSQL 16 + Flyway | Persistencia por usuario; migraciones versionadas. | [ADR-0003](../adr/0003-flyway-for-migrations.md), [ADR-0004](../adr/0004-numeric-bigdecimal-amounts.md) |

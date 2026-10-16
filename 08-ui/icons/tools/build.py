@@ -106,25 +106,34 @@ def _paths(svg_text):
     return re.findall(r"<path [^>]*/>", svg_text)
 
 
-def vectorize(png: Path, svg: Path, precision=7, mono=None, erode=0):
+UP = 2        # se traza a doble resolución para curvas más suaves
+COLORS = 12   # paleta plana: elimina los píxeles intermedios del antialias, que generan bordes de serrucho
+
+
+def vectorize(png: Path, svg: Path, precision=8, mono=None, erode=0):
     """Colores en modo 'stacked' (sin costuras) recortados con la silueta exacta (traza binaria).
 
-    `erode` encoge la silueta unos píxeles para dejar fuera el halo del fondo original."""
-    im = Image.open(png).convert("RGBA")
+    Antes de trazar: se duplica la resolución, se reduce a una paleta plana y se aplica un filtro
+    de moda para que cada zona de color tenga un borde limpio. `erode` encoge la silueta para
+    dejar fuera el halo del fondo original."""
+    src = Image.open(png).convert("RGBA")
+    w, h = src.size
+    im = src.resize((w * UP, h * UP), Image.LANCZOS)
     a = np.asarray(im)[..., 3]
     if erode:
-        a = np.asarray(Image.fromarray(a).filter(ImageFilter.MinFilter(erode)))
+        a = np.asarray(Image.fromarray(a).filter(ImageFilter.MinFilter(erode * UP - (UP - 1))))
+    a = np.asarray(Image.fromarray(a).filter(ImageFilter.GaussianBlur(1.5 * UP)))
     tmp = OUT / "work"
     # 1) silueta
     sil = Image.fromarray(np.where(a >= 128, 0, 255).astype(np.uint8)).convert("RGB")
     sil.save(tmp / "_sil.png")
     vtracer.convert_image_to_svg_py(
         str(tmp / "_sil.png"), str(tmp / "_sil.svg"), colormode="binary", mode="spline",
-        filter_speckle=4, corner_threshold=60, length_threshold=4.0, splice_threshold=45, path_precision=2,
+        filter_speckle=8 * UP, corner_threshold=80, length_threshold=6.0, splice_threshold=45, path_precision=2,
     )
     sil_paths = _paths((tmp / "_sil.svg").read_text())
-    w, h = im.size
-    head = f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">\n'
+    head = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
+            f'viewBox="0 0 {w * UP} {h * UP}">\n')
     if mono is not None:
         fill = "#%02X%02X%02X" % mono
         body = "".join(re.sub(r'fill="[^"]*"', f'fill="{fill}"', p) + "\n" for p in sil_paths)
@@ -132,12 +141,16 @@ def vectorize(png: Path, svg: Path, precision=7, mono=None, erode=0):
         return
     # 2) colores sobre color clave
     flat = Image.new("RGB", im.size, KEY)
-    flat.paste(im.convert("RGB"), mask=Image.fromarray(np.where(a >= 128, 255, 0).astype(np.uint8)))
+    # Se pinta con la silueta sin erosionar para que el color llegue hasta el borde del recorte.
+    full = np.asarray(im)[..., 3]
+    flat.paste(im.convert("RGB"), mask=Image.fromarray(np.where(full >= 128, 255, 0).astype(np.uint8)))
+    flat = flat.quantize(colors=COLORS, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE).convert("RGB")
+    flat = flat.filter(ImageFilter.ModeFilter(4 * UP + 1))
     flat.save(tmp / "_col.png")
     vtracer.convert_image_to_svg_py(
         str(tmp / "_col.png"), str(tmp / "_col.svg"), colormode="color", hierarchical="stacked", mode="spline",
-        filter_speckle=6, color_precision=precision, layer_difference=10,
-        corner_threshold=60, length_threshold=4.0, splice_threshold=45, path_precision=2,
+        filter_speckle=10 * UP, color_precision=precision, layer_difference=4,
+        corner_threshold=80, length_threshold=6.0, splice_threshold=45, path_precision=2,
     )
     col = []
     for p in _paths((tmp / "_col.svg").read_text()):
@@ -158,12 +171,19 @@ def render(svg: Path, png: Path, size):
     png.write_bytes(bytes(data))
 
 
-def export(img: Image.Image, base: Path, size=CANVAS, mono=None, erode=0):
-    work = OUT / "work" / (base.name + ".png")
-    img.save(work)
-    svg = base.with_suffix(".svg")
-    vectorize(work, svg, mono=mono, erode=erode)
-    render(svg, base.with_suffix(".png"), size)
+def refine(img: Image.Image, erode=0) -> Image.Image:
+    """Afina un recorte ampliado: borde de alfa más definido y nitidez en el color."""
+    r, g, b, a = img.split()
+    if erode:
+        a = a.filter(ImageFilter.MinFilter(erode))
+    # Curva de contraste sobre el alfa: el borde pasa de ~4 px difusos a ~1-2 px, sin escalones.
+    a = a.filter(ImageFilter.GaussianBlur(0.8)).point(lambda v: max(0, min(255, round((v - 60) * 255 / 135))))
+    rgb = Image.merge("RGB", (r, g, b)).filter(ImageFilter.UnsharpMask(radius=2.5, percent=90, threshold=2))
+    return Image.merge("RGBA", (*rgb.split(), a))
+
+
+def export(img: Image.Image, base: Path, erode=0):
+    refine(img, erode).save(base.with_suffix(".png"), optimize=True)
 
 
 # ---------- Mascota: misma escala para todas, apoyadas en la misma línea de suelo ----------
@@ -181,34 +201,28 @@ s_mark = 860 / max(mark.shape[:2])
 export(place(mark, s_mark), OUT / "brand" / "coffer-mark", erode=5)
 export(place(mark_dark, 860 / max(mark_dark.shape[:2])), OUT / "brand" / "coffer-mark-dark", erode=9)
 
-# Monocromo real (un solo color, para el ícono temático de Android 13+).
-export(place(mark, s_mark), OUT / "brand" / "coffer-mark-mono", mono=MONO)
+# Monocromo real (un solo color, para el ícono temático de Android 13+): silueta vectorial.
+place(mark, s_mark).save(OUT / "work" / "coffer-mark-mono.png")
+vectorize(OUT / "work" / "coffer-mark-mono.png", OUT / "brand" / "coffer-mark-mono.svg", mono=MONO)
+(OUT / "brand" / "coffer-mark-mono.png").write_bytes(bytes(resvg_py.svg_to_bytes(
+    svg_path=str(OUT / "brand" / "coffer-mark-mono.svg"), width=CANVAS, height=CANVAS)))
 
-# Logotipo horizontal sin lema, en lienzo apaisado.
+# Logotipo horizontal sin lema, en lienzo apaisado; variante oscura con la palabra en #F5F5F4.
 logo = Image.fromarray(pieces["logo-horizontal"])
 f = 1800 / logo.width
 logo = logo.resize((1800, round(logo.height * f)), Image.LANCZOS)
 lc = Image.new("RGBA", (1920, logo.height + 120), (0, 0, 0, 0))
 lc.alpha_composite(logo, (60, 60))
-lc.save(OUT / "work" / "coffer-logo-horizontal.png")
-vectorize(OUT / "work" / "coffer-logo-horizontal.png", OUT / "brand" / "coffer-logo-horizontal.svg", erode=3)
+lc = refine(lc, erode=3)
+lc.save(OUT / "brand" / "coffer-logo-horizontal.png", optimize=True)
+arr = np.asarray(lc).copy()
+rgb = arr[..., :3].astype(int)
+text = (rgb.max(axis=2) < 90) & (rgb.max(axis=2) - rgb.min(axis=2) < 30)
+text[:, : int(lc.width * 0.27)] = False  # solo la palabra, no el zorro
+arr[text, :3] = (245, 245, 244)
+Image.fromarray(arr).save(OUT / "brand" / "coffer-logo-horizontal-dark.png", optimize=True)
 
-
-def near_black_to(svg_text, hex_color):
-    def sub(m):
-        r, g, b = (int(m.group(1)[i:i + 2], 16) for i in (0, 2, 4))
-        return f'fill="{hex_color}"' if max(r, g, b) < 70 and max(r, g, b) - min(r, g, b) < 25 else m.group(0)
-    return re.sub(r'fill="#([0-9A-Fa-f]{6})"', sub, svg_text)
-
-
-# Variante para modo oscuro: la palabra "Coffer" pasa a text-primary oscuro (#F5F5F4).
-light_logo = (OUT / "brand" / "coffer-logo-horizontal.svg").read_text()
-(OUT / "brand" / "coffer-logo-horizontal-dark.svg").write_text(near_black_to(light_logo, "#F5F5F4"))
-for v in ("", "-dark"):
-    data = resvg_py.svg_to_bytes(svg_path=str(OUT / "brand" / f"coffer-logo-horizontal{v}.svg"), width=1920, height=lc.height)
-    (OUT / "brand" / f"coffer-logo-horizontal{v}.png").write_bytes(bytes(data))
-
-# Íconos de app (para Play Store y vista previa): glifo vectorial sobre fondo claro u oscuro.
+# Íconos de app (Play Store y vista previa): glifo sobre fondo claro u oscuro.
 for variant, bg, glyph in (("light", LIGHT_BG, "coffer-mark"), ("dark", DARK_BG, "coffer-mark-dark")):
     g = Image.open(OUT / "brand" / f"{glyph}.png").convert("RGBA")
     g = g.resize((660, 660), Image.LANCZOS)  # zona segura del ícono adaptativo (~66 %)

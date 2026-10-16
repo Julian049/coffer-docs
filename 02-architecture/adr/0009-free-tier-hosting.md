@@ -1,6 +1,6 @@
 # ADR-0009: Hosting gratuito con Render (API) y Neon (PostgreSQL)
 
-- **Estado:** Propuesto
+- **Estado:** Aceptado (2026-10-16)
 - **Fecha:** 2026-10-09
 - **Decisores:** @Julian
 - **Requisitos relacionados:** §2.4, §10.2 (pregunta abierta), RNF-06, RNF-10
@@ -20,9 +20,9 @@ El servicio en la nube debe desplegarse **sin costo**. Necesita: ejecutar un con
 
 > Las condiciones de los planes gratuitos cambian con frecuencia. Antes de aceptar este ADR, hay que confirmar en la página de cada proveedor los límites vigentes (horas de cómputo, almacenamiento, suspensión por inactividad).
 
-## Decisión (propuesta)
+## Decisión
 
-Se propone la **opción A: Render para la API y Neon para PostgreSQL**:
+Se adopta la **opción A: Render para la API y Neon para PostgreSQL**:
 
 - Render construye la imagen desde el `Dockerfile` del repositorio `coffer-server` en cada merge a `main`.
 - Conexión a Neon con TLS (`sslmode=require`) y un pool de Hikari de 3–5 conexiones.
@@ -30,6 +30,18 @@ Se propone la **opción A: Render para la API y Neon para PostgreSQL**:
 - Respaldo adicional: un job semanal de GitHub Actions ejecuta `pg_dump`, lo cifra con `age` y lo guarda como artefacto privado.
 
 La arquitectura no depende del proveedor: cualquier plataforma que ejecute un contenedor OCI con HTTPS y un PostgreSQL 16 sirve. Cambiar de proveedor solo afecta la configuración.
+
+### Límites verificados (2026-10-16)
+
+| Proveedor | Límite del plan gratuito | Efecto en Coffer |
+| --- | --- | --- |
+| Render | El servicio se duerme tras 15 min sin tráfico y tarda cerca de 1 min en despertar | Cubierto por el backoff del worker y el timeout de 60 s |
+| Render | 750 horas de instancia al mes **por workspace** (no por servicio); si se agotan, los servicios gratuitos se suspenden hasta el mes siguiente | `coffer-server-staging` y `coffer-server` comparten la bolsa. Como se duermen sin tráfico, el uso real es bajo; no se deben mantener despiertos con pings |
+| Neon | 100 CU-hora de cómputo al mes por proyecto; se suspende tras 5 min inactivo | Las ramas `staging` y `production` comparten la bolsa del proyecto `coffer` |
+| Neon | 1 GB de almacenamiento por proyecto; al superarlo fallan las escrituras que lo hacen crecer | Holgado para el volumen estimado (unos pocos MB por usuario) |
+| Neon | 10 ramas por proyecto | Se usan 2 |
+
+Fuentes: [Render FAQ](https://render.com/docs/faq), [Neon plans](https://neon.com/docs/introduction/plans).
 
 ### Consecuencias
 

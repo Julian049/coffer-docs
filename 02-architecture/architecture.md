@@ -378,7 +378,7 @@ Registro completo en [`adr/`](adr/README.md):
 | [0006](adr/0006-sync-protocol.md) | Push/pull con cursor y último cambio gana | Aceptado |
 | [0007](adr/0007-self-issued-jwt-auth.md) | JWT propio, refresh rotativo y Google | Aceptado |
 | [0008](adr/0008-on-device-security.md) | SQLCipher + Keystore | Aceptado |
-| [0009](adr/0009-free-tier-hosting.md) | Render + Neon | Propuesto |
+| [0009](adr/0009-free-tier-hosting.md) | Render + Neon | Aceptado |
 | [0010](adr/0010-financial-logic-on-client.md) | Lógica financiera en el cliente | Aceptado |
 | [0011](adr/0011-android-client-stack.md) | Stack del cliente Android | Aceptado |
 | [0012](adr/0012-api-v1-contract-and-errors.md) | Contrato `/api/v1` y errores RFC 9457 | Aceptado |
@@ -437,7 +437,7 @@ flowchart LR
 
 | # | Riesgo o deuda | Probabilidad | Impacto | Mitigación |
 | --- | --- | --- | --- | --- |
-| R1 | Cambien las condiciones del hosting gratuito | Media | Medio | Contenedor portable; respaldo semanal; ADR-0009 en estado *Propuesto* |
+| R1 | Cambien las condiciones del hosting gratuito | Media | Medio | Contenedor portable; respaldo semanal; límites revisados en ADR-0009 |
 | R2 | Un reloj del dispositivo desfasado gana un conflicto LWW | Baja | Bajo | Aceptado por el SRS §2.5; se registra en `change_log` y se puede revertir |
 | R3 | Pérdida de la clave del Keystore (restablecer el teléfono) | Baja | Medio | La nube restaura todo (HU-06) |
 | R4 | Errores en los cálculos de tarjeta y préstamo | Media | Alto | Motor único con pruebas de los ejemplos del SRS y casos límite (febrero, día 31, primera cuota sin intereses) |
@@ -454,7 +454,7 @@ flowchart LR
 | Categorías base concretas | Semilla en el cliente (REQ-CAT-01) | Abierta; no bloquea la arquitectura |
 | Columnas del CSV de Cashew | Mapeo por defecto del importador | Abierta |
 | Intereses de compras entre corte y pago | `CardPeriodCalculator` | Abierta; se aísla en una sola función |
-| Proveedor de hosting | Despliegue | Propuesta en ADR-0009 |
+| Proveedor de hosting | Despliegue | Resuelta: Render + Neon (ADR-0009, aceptado) |
 
 ---
 

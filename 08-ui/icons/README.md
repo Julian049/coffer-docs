@@ -62,6 +62,14 @@ Contrato: **1024 × 1024, fondo transparente, misma escala** (el zorro sentado m
 
 Las reglas exactas (umbrales de cada estado) se definen en la historia que introduzca la mascota en la app.
 
+### En Figma
+
+- **Sección "Marca y mascota"** (junto a "Componentes"): las 9 imágenes con su nombre de archivo. Si se reemplaza una imagen aquí, también hay que subirla de nuevo a Figma.
+- **Componente "Estado del zorro"** (sección "Componentes"): una tarjeta con el zorro y un mensaje corto. Tiene la variante `Estado` = Normal, Bien, Meta cumplida, Atento, Preocupado o Deudas.
+- **Inicio** muestra la tarjeta debajo del saldo; la pantalla base está en el estado *Bien*.
+- **Sección "2b · Inicio según el estado financiero"**: una copia de Inicio por estado, con valores coherentes (saldo, tendencia, chip y pagos próximos). Incluye *Primer uso*, con el zorro descansando como estado vacío.
+- **Iniciar sesión** usa el zorro de bienvenida, y el encabezado de Inicio usa `coffer-mark`.
+
 ## Calidad
 
 Las piezas que salieron de la hoja original (todas menos `preocupado` y `deudas`) venían de ilustraciones de ~270 px, ampliadas a 1024 px con bordes afinados: se ven bien al tamaño de uso en el teléfono, pero algo suaves a pantalla completa. Para más nitidez, basta con regenerar esa pieza **suelta** con la IA (como se hizo con `preocupado` y `deudas`, que vienen de imágenes de 1264 px) y reemplazarla con copiar y pegar.

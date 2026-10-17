@@ -45,10 +45,10 @@ sequenceDiagram
                 end
             end
         end
+        Note over PS,PG: Antes de escribir, LedgerValidators verifica que las referencias existan (FIN-REFERENCE) y cada escritura va en su SAVEPOINT. Así una FK diferida no falla en el COMMIT
         PS->>PG: COMMIT (se validan las FK diferidas)
-        alt Una FK diferida falla
-            PS->>PG: ROLLBACK
-            PS->>PS: Reintenta cambio por cambio (SAVEPOINT) para aislar el culpable
+        alt Una FK diferida falla (no debería, por la verificación previa)
+            PS->>PG: ROLLBACK y 500 genérico
         end
         PS-->>SC: results [{id, status, code?}]
         SC-->>W: 200 PushResponse

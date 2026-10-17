@@ -213,7 +213,7 @@ financeapp/
 │   ├── repository/ *RepositoryImpl, ChangeLogWriter, BaseCatalogSeeder
 │   ├── sync/       SyncWorker, SyncSchedulerImpl, OutboxReader, ChangeApplier, EntityCodec, ConnectivityObserver
 │   ├── reminder/   ReminderWorker, NotificationPublisher, ReminderSchedulerImpl
-│   ├── session/    SessionStore (DataStore Proto + Keystore AES-GCM), DeviceIdProvider
+│   ├── session/    SessionStore (DataStore tipado con kotlinx.serialization + Keystore AES-GCM), DeviceIdProvider
 │   └── io/         CsvReader, XlsxReader, TabularReader, CsvWriter, DuplicateDetector, ImportWorker
 └── di/             DatabaseModule, NetworkModule, RepositoryModule, WorkerModule, DispatchersModule
 ```

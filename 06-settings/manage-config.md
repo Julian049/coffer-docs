@@ -390,6 +390,7 @@ Variables por servicio en Render (solo los nombres son CI; los valores son secre
 | App | Servidor mínimo | Contrato | Última migración | Fecha |
 | --- | --- | --- | --- | --- |
 | 0.1.0 | 0.1.0 | — (`/transactions` sin versión) | V2 | 2026-05 |
+| 0.2.0 | 0.2.0 (montos como string JSON) | — (`/transactions` sin versión; `openapi.yml` 1.0.0 aún no implementado) | V2 | 2026-10-16 |
 | *(se completa en cada release)* | | | | |
 
 ---

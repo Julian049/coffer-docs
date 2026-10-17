@@ -15,7 +15,7 @@
 | Pruebas automatizadas (servidor / app) | 39 / 70 métodos de prueba, todos en verde en CI; 3 instrumentadas en la app que se corren a mano |
 | Cobertura domain/finance · domain · servidor | — (aún no existe) · no medida (Kover no está configurado) · no medida en este sprint |
 | Defectos abiertos por severidad | C: 0 · A: 0 · M: 0 · B: 0 |
-| Riesgos de §4 afectados y estado | Migración de los datos reales del MVP en producción: se hace en el release, con rama `pre-v0.4.0` en Neon y reclamo en producción. Ver §4 |
+| Riesgos de §4 afectados y estado | Migración local del MVP sin prueba con datos reales: aceptado, porque producción queda vacía hasta la importación de S8. Ver §4 |
 | Recomendación | **Liberar** `v0.4.0` siguiendo el orden de §4 |
 
 ## 2. Aceptación del PO
@@ -26,7 +26,7 @@
 | AT-HU06-1 | Reinstalar e iniciar sesión: descarga con barra de progreso | **Parcial:** el PO vio *Descargando tus datos* al registrarse, sin datos que descargar. La descarga con datos queda cubierta por `SyncEngineTest` e `InitialDownloadViewModelTest` |
 | AT-HU05-2 | Servidor dormido: la app sigue usable y reintenta | Sin ejecutar a propósito. Automatizado: `SyncEngineTest`/`SyncWorker` (503 → reintento con backoff). La UI nunca espera a la red (ADR-0005) |
 | AT-AUT-05 | Error del servidor sin detalles técnicos | Automatizado: `PushServiceIT` (rechazos con `code` y mensaje en español), `ProblemDetailsAdviceTest` |
-| Movimientos del MVP en Historial | Migración local del MVP | No aplica en staging: la app de staging es otra instalación y no tiene base del MVP. Se verifica en producción al instalar `v0.4.0` sobre la app actual (§4) |
+| Movimientos del MVP en Historial | Migración local del MVP | No ejecutado: la app de staging no tiene base del MVP y el PO decidió no llevar los datos del MVP a producción (§4). Cubierto por `LegacyDatabaseMigratorTest` |
 
 S3-OPS01: en staging el usuario `owner` solo tenía datos de prueba (1 cuenta, 2 categorías, 1 movimiento). El PO lo eliminó en lugar de reclamarlo (2026-10-17).
 
@@ -45,16 +45,15 @@ S3-OPS01: en staging el usuario `owner` solo tenía datos de prueba (1 cuenta, 2
 | coffer-app | `ComponentsScreenshotTest` | Nuevas: Descargando tus datos (claro y oscuro), Historial, Cuentas; indicador en Inicio y Ajustes |
 | coffer-app | `EncryptionInstrumentedTest`, `SessionStoreTest` (instrumentadas, a mano) | Base cifrada con SQLCipher, sesión en Keystore. **Pendientes de correr** |
 
-## 4. Riesgo aceptado y orden del release
+## 4. Riesgo aceptado y decisión sobre producción
 
-La migración local del MVP y el reclamo en producción solo se han probado con pruebas automáticas, porque staging no tiene los datos reales. Para reducir el riesgo:
+**Decisión del PO (2026-10-17):** producción queda **vacía**. Los datos del MVP no se reclaman; los datos reales se cargarán con la importación por CSV (S8-H01, `v1.0.0`). Por eso, en el release:
 
-1. Antes de fusionar el release del servidor: rama `pre-v0.4.0` en Neon `production`.
-2. Release del servidor (V4–V6 corren en producción; los datos del MVP pasan al `owner`).
-3. Reclamo en producción (data-model §4.4) con el usuario real del PO, **antes** de instalar la app nueva.
-4. Release de la app; el PO la instala encima de la actual y comprueba Historial y "Sincronizado".
+1. Antes de fusionar el release del servidor: rama `pre-v0.4.0` en Neon `production` (procedimiento normal).
+2. Release del servidor. V6 pasa los datos del MVP al usuario `owner`; después se **borra el `owner`** (sus filas se borran en cascada). La tabla `transactions_mvp` queda hasta V10.
+3. Release de la app. Para no subir los datos del MVP del teléfono, el PO **desinstala la app anterior** antes de instalar `v0.4.0`; si la instala encima, `LegacyDatabaseMigrator` migraría esos datos y los subiría a su cuenta.
 
-Si algo falla, se restaura la rama `pre-v0.4.0` y se corrige con un PATCH (manage-config §3.7).
+Riesgo aceptado: la migración local del MVP (`LegacyDatabaseMigrator`) solo está probada con pruebas automáticas, nunca con los datos reales.
 
 ## 5. Hallazgos durante el sprint
 
@@ -74,6 +73,7 @@ Si algo falla, se restaura la rama `pre-v0.4.0` y se corrige con un PATCH (manag
 - Kover en la app antes de la lógica financiera (S4).
 - APK de release de 54 MB (sin R8/minify).
 - Usuario de prueba `claudeprueba4195` en staging.
+- El usuario actual del PO en producción se conserva o se borra a criterio del PO; el inicio con Google (S11) vincula por correo, así que no hace falta borrarlo para usar Google después.
 
 ## 7. Retrospectiva
 

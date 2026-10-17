@@ -34,7 +34,7 @@ Cubre la versión 1.0 definida en el SRS: app Android offline-first (Kotlin, Com
 
 ### 1.3 Contexto
 
-La arquitectura ([`architecture.md`](../02-architecture/architecture.md)) fija los contenedores, el estilo (local-first + servicio de respaldo, monolito modular) y las decisiones (ADR-0001 a 0012). Este SDD baja esas decisiones a elementos implementables sin cambiarlas. Si un detalle de diseño contradice un ADR, prevalece el ADR y se corrige este documento.
+La arquitectura ([`architecture.md`](../02-architecture/architecture.md)) fija los contenedores, el estilo (local-first + servicio de respaldo, monolito modular) y las decisiones (ADR-0001 a 0013). Este SDD baja esas decisiones a elementos implementables sin cambiarlas. Si un detalle de diseño contradice un ADR, prevalece el ADR y se corrige este documento.
 
 ### 1.4 Resumen
 

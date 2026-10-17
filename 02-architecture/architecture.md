@@ -451,7 +451,7 @@ flowchart LR
 
 | Pregunta (SRS §10.2) | Dónde impacta | Estado |
 | --- | --- | --- |
-| Categorías base concretas | Semilla en el cliente (REQ-CAT-01) | Abierta; no bloquea la arquitectura |
+| Categorías base concretas | Semilla en el cliente (REQ-CAT-01) | Resuelta en la planificación de S3: detailed-design §6.9.10 |
 | Columnas del CSV de Cashew | Mapeo por defecto del importador | Abierta |
 | Intereses de compras entre corte y pago | `CardPeriodCalculator` | Abierta; se aísla en una sola función |
 | Proveedor de hosting | Despliegue | Resuelta: Render + Neon (ADR-0009, aceptado) |

@@ -738,6 +738,23 @@ pull(userId, since, limit):
 
 `clave = (occurredAt truncado al minuto, amount, accountId, type)`. Hay posible duplicado si la clave existe en la base local o se repite dentro del archivo. Por defecto se omite.
 
+#### 6.9.10 `BaseCatalogSeeder` — REQ-CAT-01
+
+Aprobado por el PO en la planificación de S3 (2026-10-16): las categorías del prototipo, más la obligatoria de cargos financieros y un "Otros" por tipo. Se crean **una sola vez**, solo si la cuenta es nueva (la descarga inicial no trajo categorías), con `is_base = true` y UUID nuevos, y se suben por sincronización. Todas se pueden editar o eliminar, excepto `FINANCIAL_CHARGES`, que tiene lógica (REQ-TC-09).
+
+| Tipo | Categoría | Subcategorías | `system_key` |
+| --- | --- | --- | --- |
+| Gasto | Comida | Restaurantes · Supermercado · Cafeterías | — |
+| Gasto | Transporte | Taxi / Apps · Gasolina · Mantenimiento | — |
+| Gasto | Hogar | Servicios públicos · Arriendo · Mantenimiento | — |
+| Gasto | Entretenimiento | Streaming · Salidas · Cine | — |
+| Gasto | Salud | Farmacia · Consultas | — |
+| Gasto | Educación | — | — |
+| Gasto | Intereses y cargos financieros | — | `FINANCIAL_CHARGES` |
+| Gasto | Otros gastos | — | — |
+| Ingreso | Salario | — | — |
+| Ingreso | Otros ingresos | — | — |
+
 ### 6.10 Vista de recursos
 
 | Recurso | Diseño | Requisito |

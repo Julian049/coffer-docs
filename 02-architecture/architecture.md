@@ -382,6 +382,7 @@ Registro completo en [`adr/`](adr/README.md):
 | [0010](adr/0010-financial-logic-on-client.md) | Lógica financiera en el cliente | Aceptado |
 | [0011](adr/0011-android-client-stack.md) | Stack del cliente Android | Aceptado |
 | [0012](adr/0012-api-v1-contract-and-errors.md) | Contrato `/api/v1` y errores RFC 9457 | Aceptado |
+| [0013](adr/0013-on-device-sync-queue.md) | Cola de sincronización en el dispositivo con WorkManager, sin broker | Aceptado |
 
 ---
 
@@ -425,7 +426,7 @@ flowchart LR
 
 | Meta | ADR | RNF |
 | --- | --- | --- |
-| Q1 | 0005, 0006, 0010 | RNF-05, RNF-06 |
+| Q1 | 0005, 0006, 0010, 0013 | RNF-05, RNF-06 |
 | Q2 | 0004, 0006, 0003 | RNF-12, REQ-SYN-02 a 04 |
 | Q3 | 0005, 0011 | RNF-02, RNF-03, RNF-04, RNF-14 |
 | Q4 | 0007, 0008, 0012 | RNF-07 a 11 |

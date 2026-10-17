@@ -25,3 +25,4 @@ Cada decisión significativa se registra como un ADR con el formato [MADR 4](htt
 | [0010](0010-financial-logic-on-client.md) | La lógica financiera vive en el dominio del cliente | Aceptado |
 | [0011](0011-android-client-stack.md) | Stack del cliente Android (minSdk 31, Compose, Hilt, kotlinx.serialization) | Aceptado |
 | [0012](0012-api-v1-contract-and-errors.md) | Contrato `/api/v1`, OpenAPI y errores RFC 9457 | Aceptado |
+| [0013](0013-on-device-sync-queue.md) | Cola de sincronización en el dispositivo con WorkManager, sin broker | Aceptado |

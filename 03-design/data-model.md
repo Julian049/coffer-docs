@@ -984,6 +984,6 @@ Columnas solo locales en cada entidad sincronizable: `syncState TEXT NOT NULL DE
 - **Migración del MVP (única vez):** SQLCipher no puede cifrar en sitio la base `finance_db` sin cifrar. `LegacyDatabaseMigrator` se ejecuta al primer arranque de la v1.0:
   1. Abre `finance_db` (SQLite sin cifrar) si existe.
   2. Crea la cuenta "Efectivo (migrada)" y las categorías "Sin categoría" con los mismos UUID fijos del servidor (`…a1`, `…b1`, `…b2`).
-  3. Convierte cada fila con las mismas reglas que V6 (signo a `type`, `abs` a `amount`, `title` + `description` a `note`) y la inserta en `finance.db`. Las filas con `synced = 1` quedan como `SYNCED` y el resto como `PENDING`.
+  3. Convierte cada fila con las mismas reglas que V6 (signo a `type`, `abs` a `amount`, `title` + `description` a `note`) y la inserta en `finance.db`. **Todas quedan `PENDING`:** en el MVP, `synced = 1` significaba subida a su servidor de pruebas, no a la nube de Coffer. Como el push es idempotente (mismo UUID, último cambio gana), reenviarlas no duplica nada. Corregido en S3-H02.
   4. Borra `finance_db` y marca `legacy_migrated = true` en `sync_meta`.
 - Como los UUID coinciden con los del servidor, la primera sincronización no duplica nada.
